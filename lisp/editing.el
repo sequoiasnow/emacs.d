@@ -5,7 +5,9 @@
 			  'rainbow-delimiters
 			  'evil
 			  'helm
-			  'paredit)
+			  'paredit
+                          'neotree
+                          'scss-mode)
 
 ;; Default autocomplete configuration.
 (require 'auto-complete)
@@ -26,6 +28,10 @@
 
 ;; Enable the helm configuration
 (require 'helm-config)
+
+;; Enable the configuration of neotree
+(setq neo-theme 'arrow)
+(global-set-key (kbd "M-]") 'neotree-toggle)
 
 ;; Add paraedit support to any lisp file.
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
@@ -55,10 +61,8 @@
 (show-paren-mode 1)
 
 ;; Highlight the current line
-(require 'hl-line)
-(global-hl-line-mode 1)
-(set-face-background 'hl-line "#770082")
-(set-face-underline-p 'highlight nil) 
+                                        ; (require 'hl-line)
+                                        ; (global-hl-line-mode 1)
 
 ;; Use soft tabs.
 (setq-default indent-tabs-mode nil)
@@ -78,3 +82,7 @@
 
 ;; Also disable the scrollbars.
 (scroll-bar-mode -1)
+
+;; Set the tab width for different styles, such as html or sass
+(setq scss-indent-offset 2)
+(setq css-indent-offset 2)

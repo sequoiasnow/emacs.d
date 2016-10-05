@@ -3,4 +3,5 @@
 			  'rust-mode
 			  'web-mode
 			  'clojure-mode
-			  'clojure-mode-extra-font-locking)
+			  'clojure-mode-extra-font-locking
+                          'markdown-mode)
