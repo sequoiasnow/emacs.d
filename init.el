@@ -42,22 +42,37 @@
 ;; Enable information about org mode.
 (load "org-mode")
 
+
+;; Lets play with powerline...
+(ensure-package-installed 'spaceline)
+(require 'spaceline-config)
+(spaceline-spacemacs-theme)
+(setq powerline-default-separator 'contour)
+(setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+
+;; Fix minor bug in the gui
+(setq powerline-height 20)
+(setq powerline-raw " ")
+(setq ns-use-srgb-colorspace nil)
+
+;; Default don't show the emacs splashcreen
+(setq inhibit-startup-screen t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
- '(custom-safe-themes
-   (quote
-    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "0c29db826418061b40564e3351194a3d4a125d182c6ee5178c237a7364f0ff12" default)))
  '(linum-format " %7i ")
  '(package-selected-packages
    (quote
-    (color-theme-sanityinc-tomorrow vi-tilde-fringe yaml-mode scss-mode matlab-mode markdown-preview-mode markdown-preview-eww impatient-mode markdown-mode+ neotree markdown-mode web-mode swift-mode sublime-themes rust-mode rainbow-mode rainbow-delimiters paredit helm haskell-mode evil clojure-mode-extra-font-locking cider auto-complete aggressive-indent))))
+    (helm-projectile magit fancy-battery spaceline powerline yaml-mode web-mode vi-tilde-fringe swift-mode sublime-themes scss-mode rust-mode rich-minority rainbow-mode rainbow-delimiters paredit neotree matlab-mode markdown-preview-mode markdown-preview-eww markdown-mode+ js2-mode impatient-mode helm haskell-mode evil dockerfile-mode color-theme-sanityinc-tomorrow clojure-mode-extra-font-locking cider auto-complete aggressive-indent)))
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:stipple nil :slant normal :weight normal :height 130 :width normal :family "Fira Mono for Powerline")))))

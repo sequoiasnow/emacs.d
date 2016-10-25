@@ -7,11 +7,18 @@
 			  'helm
 			  'paredit
                           'neotree
-                          'scss-mode)
+                          'magit
+                          'projectile
+                          'helm-projectile) 
 
 ;; Default autocomplete configuration.
 (require 'auto-complete)
 (ac-config-default)
+
+;; Configure projectile.
+(projectile-global-mode)
+(require 'helm-projectile)
+(helm-projectile-on)
 
 ;; Creates the aggressive indent.
 (require 'aggressive-indent)
@@ -86,3 +93,12 @@
 ;; Set the tab width for different styles, such as html or sass
 (setq scss-indent-offset 2)
 (setq css-indent-offset 2)
+
+;; Add markdown mode editing...
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(setq markdown-command "multimarkdown")
+(setq markdown-enable-math t)
+
+
