@@ -4,6 +4,7 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 
 (defun ensure-package-installed (&rest packages)
   "Ensure every needed package is installed through available repositiories"
@@ -27,6 +28,9 @@
                                         "/usr/local/sbin"
                                         (expand-file-name "~/bin"))))
 
+;; change all prompts to y or n
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ;; Allow the loading of additional files from the lisp directory.
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
@@ -47,7 +51,6 @@
 (ensure-package-installed 'spaceline)
 (require 'spaceline-config)
 (spaceline-spacemacs-theme)
-(setq powerline-default-separator 'contour)
 (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 
 ;; Fix minor bug in the gui
@@ -67,7 +70,8 @@
  '(linum-format " %7i ")
  '(package-selected-packages
    (quote
-    (helm-projectile magit fancy-battery spaceline powerline yaml-mode web-mode vi-tilde-fringe swift-mode sublime-themes scss-mode rust-mode rich-minority rainbow-mode rainbow-delimiters paredit neotree matlab-mode markdown-preview-mode markdown-preview-eww markdown-mode+ js2-mode impatient-mode helm haskell-mode evil dockerfile-mode color-theme-sanityinc-tomorrow clojure-mode-extra-font-locking cider auto-complete aggressive-indent)))
+    ((quote yasnippet)
+     yasnippet helm-projectile magit fancy-battery spaceline powerline yaml-mode web-mode vi-tilde-fringe swift-mode sublime-themes scss-mode rust-mode rich-minority rainbow-mode rainbow-delimiters paredit neotree matlab-mode markdown-preview-mode markdown-preview-eww markdown-mode+ js2-mode impatient-mode helm haskell-mode evil dockerfile-mode color-theme-sanityinc-tomorrow clojure-mode-extra-font-locking cider auto-complete aggressive-indent)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces

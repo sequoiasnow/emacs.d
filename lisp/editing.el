@@ -9,7 +9,11 @@
                           'neotree
                           'magit
                           'projectile
-                          'helm-projectile) 
+                          'helm-projectile
+                          'yasnippet
+                          'php-extras) 
+;; Include snippets mode
+(yas-global-mode 1)
 
 ;; Default autocomplete configuration.
 (require 'auto-complete)
