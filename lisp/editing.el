@@ -11,9 +11,12 @@
                           'projectile
                           'helm-projectile
                           'yasnippet
-                          'php-extras) 
+                          'php-extras
+                          'helm-dash) 
 ;; Include snippets mode
 (yas-global-mode 1)
+
+;; This is my change of file...
 
 ;; Default autocomplete configuration.
 (require 'auto-complete)

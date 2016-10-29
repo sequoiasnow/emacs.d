@@ -70,7 +70,8 @@
  '(linum-format " %7i ")
  '(package-selected-packages
    (quote
-    ((quote yasnippet)
+    (helm-dash
+     (quote yasnippet)
      yasnippet helm-projectile magit fancy-battery spaceline powerline yaml-mode web-mode vi-tilde-fringe swift-mode sublime-themes scss-mode rust-mode rich-minority rainbow-mode rainbow-delimiters paredit neotree matlab-mode markdown-preview-mode markdown-preview-eww markdown-mode+ js2-mode impatient-mode helm haskell-mode evil dockerfile-mode color-theme-sanityinc-tomorrow clojure-mode-extra-font-locking cider auto-complete aggressive-indent)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
