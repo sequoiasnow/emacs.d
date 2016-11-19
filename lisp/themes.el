@@ -10,4 +10,6 @@
 (setq custom-safe-themes t)
 
 ;; Activate the current theme for emacs.
-(load-theme 'spolsky t)
+(load-theme 'sanityinc-tomorrow-bright t)
+
+(provide 'themes)

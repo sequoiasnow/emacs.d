@@ -1,4 +1,0 @@
-(ensure-package-installed 'swift-mode
-			  'haskell-mode
-			  'rust-mode
-			  'web-mode)

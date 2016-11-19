@@ -10,4 +10,4 @@
                           'scss-mode
                           'markdown-mode)
 
-
+(provide 'languages)

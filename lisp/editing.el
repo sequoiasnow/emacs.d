@@ -12,11 +12,19 @@
                           'helm-projectile
                           'yasnippet
                           'php-extras
-                          'helm-dash) 
+                          'helm-dash
+                          'smooth-scrolling)
+
+;; Enable smoth scrolling
+(require 'smooth-scrolling)
+(smooth-scrolling-mode 1)
+
 ;; Include snippets mode
 (yas-global-mode 1)
 
-;; This is my change of file...
+;; Adding jsx support for web mode.
+(setq web-mode-content-types-alist
+      '(("jsx" . "\\.js[x]?\\'")))
 
 ;; Default autocomplete configuration.
 (require 'auto-complete)
@@ -39,6 +47,7 @@
 ;; Enable evil mode editing for vim keybindings.
 (require 'evil)
 (evil-mode 1)
+(setq evil-search-module 'evil-search)
 
 ;; Enable the helm configuration
 (require 'helm-config)
@@ -75,8 +84,8 @@
 (show-paren-mode 1)
 
 ;; Highlight the current line
-                                        ; (require 'hl-line)
-                                        ; (global-hl-line-mode 1)
+(require 'hl-line)
+(global-hl-line-mode 1)
 
 ;; Use soft tabs.
 (setq-default indent-tabs-mode nil)
@@ -87,6 +96,7 @@
 
 ;; Show line numbers for convenience.
 (global-linum-mode)
+(setq linum-format " %d ")
 
 ;; Don't ring the bell
 (setq ring-bell-function 'ignore)
@@ -108,4 +118,7 @@
 (setq markdown-command "multimarkdown")
 (setq markdown-enable-math t)
 
+;; Add web mode as fundamental mode
+(setq-default major-mode 'web-mode)
 
+(provide 'editing)

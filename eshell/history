@@ -1,0 +1,13 @@
+pwd
+cd ~/Desktop/
+ls
+pwd
+ls -la
+(+ 1 2)
+(mapcar (+) '(1 2 4))
+whoami
+clear
+
+clc
+octave
+echo $PATH

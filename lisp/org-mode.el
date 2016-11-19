@@ -10,3 +10,5 @@
 (setq org-agenda-files (list "~/org/work.org"
                              "~/org/school.org" 
                              "~/org/home.org"))
+
+(provide 'org-mode)
