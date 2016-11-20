@@ -2,3 +2,4 @@ backups
 auto-save*
 ac-*
 elpa
+.DS_Store
