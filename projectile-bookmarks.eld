@@ -1,1 +1,0 @@
-("~/.emacs.d/" "~/Documents/Sites/resume/")

@@ -1,0 +1,332 @@
+#+TITLE: Sequoia Snow's Emacs Configuration
+#+AUTHOR: Sequoia Snow
+#+EMAIL: the1codemaster@gmail.com
+#+BABEL: :session *emacs-lisp*
+
+* Configuration
+This configuration sets up for my emacs. A lot of this emacs configuration
+allows easier web development as it is one of the primary tasks I accomplish
+in emacs. Becasue configuration files are hisorically as complex as middle 
+eastern politics, I've written this in org mode for a clearer configuraiton.
+If your looking for more information about writing emacs configs in org mode
+or literate programing just search google, its a great resource.
+
+** Enviroment
+Emacs, especially when launched from the GUI does not always know of the current
+values of PATH and can not find command line tools. Since I use homebrew to manage
+most of my packages, let's add that to the path.
+
+#+BEGIN_SRC emacs-lisp
+  (setenv "PATH" (concat "/usr/local/bin:/usr/local/sbin:~/bin"
+                         (getenv "PATH")))
+  (setq exec-path (append '("/usr/local/bin"
+                            "/usr/local/sbin"
+                            (expand-file-name "~/bin"))
+                          exec-path))
+#+END_SRC
+
+** Package Archives
+By default emacs 24 and later includes the elpa package repository but does not
+include melpa or marmalade. In order to install packages lets add these.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives 
+               '("marmalade" .
+                 "https://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (package-initialize)
+#+END_SRC
+
+** Managable Defaults**
+One of the more anoying features of the emacs gui is a variety of features out
+of the box that really serve no purpose, such as the toolbar or asking yes/no 
+instead of y/n. This simply overrides all the default gui fluff and changes that
+last question default.
+
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (setq inhibit-startup-screen t)
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+#+END_SRC
+
+There are also a few other features that emacs does not enable by default. Like 
+soft tabs or line numbers. Lets enable these, becasue its always kinda fun to 
+measure how much work you've done with line numbers. While where there lets also
+make emacs show matching parenthasies.
+
+#+BEGIN_SRC emacs-lisp
+  ;; Line numbers
+  (global-linum-mode)
+  (setq linum-format " %d ")
+
+  ;; Soft Tabs
+  (setq indent-tabs-mode nil)
+
+  ;; Show matching parenthasies
+  (show-paren-mode 1)
+#+END_SRC
+
+Lastly, by default emacs creates backups in the weirdest, and most anoying 
+places. Instead, lets put them all in one directory. This still lets us 
+have the nice #filename# recover data, but gets rid of the ~filename in the 
+local directory.
+
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist `(("." . ,(concat user-emacs-directory
+                                                 "backups"))))
+#+END_SRC
+** Install Packages **
+Throught this configuration we will install a variety of packages and configure
+them to add functionality. I find that installing these packages when needed 
+is easier then keeping a global list which may need to be updated, and generally 
+casues more of a mess. The function below will install one or more packages passed 
+it.
+
+#+BEGIN_SRC emacs-lisp
+  (setq package-contents-have-been-updated nil)
+  (defun ensure-package-installed (&rest packages)
+    "Ensures all passed packages are installed through configured repositories."
+    (mapcar (lambda (package)
+              (unless (package-installed-p package)
+                (unless package-contents-have-been-updated
+                  (package-refresh-contents)
+                  (setq package-contents-have-been-updated t)) 
+                (package-install package))) 
+            packages))
+#+END_SRC
+
+** Default Packages **
+Despite what I've just said, there are some packages that require no configuration
+but are still nice to have installed. These packages are installed below.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar default-packages '(swift-mode
+                             haskell-mode
+                             rust-mode
+                             web-mode
+                             clojure-mode
+                             markdown-mode
+                             dockerfile-mode
+                             yaml-mode
+                             scss-mode))
+
+  (apply 'ensure-package-installed default-packages)
+#+END_SRC
+* Package Configuration
+** Evil Mode
+Evil Mode is clearly the best part of using emacs, because its vim. Let's be 
+real though, emacs keybindings are horrible, its difficult to navigate a file
+and your about 10 times more likely to develope carpel tunnel than a vim user.
+So why not get the power of the eternal editor and the comfort of using vim?
+Thats what evil mode is, basically allowing you to use vim states and 
+keybindings, with emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'evil)
+  (evil-mode 1)
+  (setq evil-search-module 'evil-search)
+#+END_SRC
+** Powerline
+Instead of using powerline actually, I use spaceline, the powerline fork for
+spacemacs. It works well with evil mode, and is easily configurable.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'spaceline)
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+#+END_SRC
+
+Sadly, at least for my retina Macbook, there is a problem with spacemacs that
+makes the statusbar look horrible. This is a quick fix to prevent that
+
+#+BEGIN_SRC emacs-lisp
+  (setq powerline-height 20)
+  (setq powerline-raw " ")
+  (setq ns-use-srgb-colorspace nil)
+#+END_SRC
+** Agressive Indent Mode
+Saying that agressive indent mode will help make your code readable is as much 
+an understatement as saying a preprocessor will make your css slightly more DRY.
+That's why I use it everywhere, because it is amazing.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'aggressive-indent)
+  (require 'aggressive-indent)
+  (global-aggressive-indent-mode 1)
+#+END_SRC
+
+That being said, despite how amazing it is it does have the one downside of not
+working for languages which require indentation based instructions, the following
+removes it from those cases.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+#+END_SRC
+
+** Paredit Mode
+Paredit is a tool that keeps track of your parenthasees and brackets. A new
+alternative is smartparens, but paraedit is more easy to work with out of the 
+box, so its implemented here. Paraedit is also usefull in situtations where 
+you're editing source files other than lisp, especially javascript.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'paredit)
+  (autoload 'enable-paredit-mode "paredit"
+    "Turn on pseudo-structural editing of Lisp code." t)
+  (add-hook 'emacs-lisp-mode-hook                  #'enable-paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook                        #'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook                        #'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook            #'enable-paredit-mode)
+  (add-hook 'scheme-mode-hook                      #'enable-paredit-mode)
+  (add-hook 'clojure-mode-hook                     #'enable-paredit-mode)
+  (add-hook 'cider-repl-mode-hook                  #'enable-paredit-mode)
+#+END_SRC
+
+** Rainbow Deliminators
+Rainbow Deliminators let you see parenthesees and brackets in differnt colors.
+While its especially usefull for lisp's it's also very handy for javascript
+due to the nature and importance of callbacks in that language.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'rainbow-delimiters)
+  (require 'rainbow-delimiters)
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+#+END_SRC
+
+** Autocomplete (Company Mode)
+For almost any programing you need autocomplete. Sadly, Autocomplete is not the 
+most useful package in elpa, so I use Company Mode. We'll see if it provides a
+better implementation than simple autocomplete. Since its nice to have completion
+everywhere, lets enable it globally. 
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'company)
+  (add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
+
+** YASnippet
+Enable YASnippet. This allows us to have simple snippet defintions throught. If 
+this interferes with company mode you can check the docs. 
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'yasnippet)
+  (yas-global-mode 1)
+#+END_SRC
+
+Custom snippets can be placed in the ~/.emacs.d/snippets directory.
+** Smooth Scrolling
+Smooth scrolling is something simple that makes moving around in files
+slightly better. Its a simple package and their are a variety of alternatives
+availalbe.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'smooth-scrolling)
+  (require 'smooth-scrolling)
+  (smooth-scrolling-mode 1)
+#+END_SRC
+** Helm
+Helm is a framework for emacs that allows rapid file completion. It's exeedingly
+useful and should be used everywhere. A simple alternative is ido mode, however,
+in my experience helm does just as well or better.
+
+#+BEGIN_SRC emacs-lisp
+(ensure-package-installed 'helm)
+(require 'helm-config)
+(helm-mode 1)
+#+END_SRC
+
+** Magit
+Magit is an incredibly usefull package for managing git dependencies. It is 
+magificent at showing commit status and basically doing anytihng in git. Living
+with out it would be like living as a creature one letter removed from its name.
+Becasue it's so great let's bind it to C-x g
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'magit)
+  (global-set-key (kbd "C-x g") 'magit-status)
+#+END_SRC
+
+** ELDoc
+Eldoc isn't technically a package. However, I like to enable it in order to show
+the paremeters for a function and definiton when writing lisp. Recomendation
+from the wiki is to do the following:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook       'turn-on-eldoc-mode)
+  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'ielm-mode-hook             'turn-on-eldoc-mode)
+#+END_SRC
+
+* Theme
+To each programer his theme. Emacs comes with several truly terrible themes, but 
+luckily, like everything else, themes can be moded and made anew. I tend to oscilate
+between spolsky for a lighter theme and tommorow-night-bright for a darker more intense 
+look.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'sublime-themes
+                            'color-theme-sanityinc-tomorrow)
+  (setq custom-safe-themes t)
+  (load-theme 'sanityinc-tomorrow-bright t)
+#+END_SRC
+
+
+* Languages
+There are thousands of programing languages. Luckily for me I only use about
+ten or twenty of them, to that end I only need to configure a few. That configuration
+comes below.
+
+** Clojure
+Clojure is a modern day lisp that runs both on the JVM and can be transpiled to 
+javascript. Its is an excelent languagee, but emacs support is more difficult. Still,
+here it is...
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'cider 'clojure-mode)
+  (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
+  (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
+  (add-to-list 'auto-mode-alist '("\\.cljs.*$" . clojure-mode))
+  (add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
+#+END_SRC
+
+** Web
+I put all web programing languages in a group, becasue they may all be handled, more
+or less by web-mode. Web mode is one of the most fantastic parts of emacs, being
+able to syntax highlight multiple languages in files with ease. 
+
+The first task is to setup web-mode for javascript. Because I write a lot of reactjs
+I wanted to use web-mode to write my jsx.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'web-mode)
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.js\\'"       . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'"      . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html\\'"     . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ms\\'"       . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'"      . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (setq web-mode-content-types-alist
+        '(("jsx" . "\\.js[x]?\\'")))
+#+END_SRC
+
+** PHP
+I rarely return to the ancient and powerful beast of the web, but when I do, I mean 
+buiseness. Luckily, emacs supports such dangerous late night jaunts to the land of 
+dollar prefixed variables with php-extras. Php extras not only provides mere php 
+support but also installs the php documetnation, making it perfect for use instead
+of switiching to the php manual every ten seconds.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'php-extras)
+#+END_SRC
+
+To get started with pulling documentation, run the function 
+~php-extras-generate-eldoc~.
+
