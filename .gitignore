@@ -9,3 +9,5 @@ config.el
 games
 srecode-map.el
 recentf
+bookmarks
+
