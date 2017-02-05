@@ -3,3 +3,8 @@ auto-save*
 ac-*
 elpa
 .DS_Store
+auto-save-list
+ac-comphist.dat
+config.el
+games
+srecode-map.el

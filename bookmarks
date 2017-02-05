@@ -2,9 +2,19 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("Emacs Config"
- (filename . "~/.emacs.d/init.el")
- (front-context-string . "(require 'packag")
+(("Sites"
+ (filename . "~/Documents/Sites/")
+ (front-context-string . ".DS_Store\n  drwx")
+ (rear-context-string . "48 Dec 18 15:50 ")
+ (position . 259))
+("Apps"
+ (filename . "~/Documents/Apps/")
+ (front-context-string . ".DS_Store\n  drwx")
+ (rear-context-string . "48 Dec 15 16:28 ")
+ (position . 258))
+("Emacs Config (Org)"
+ (filename . "~/.emacs.d/config.org")
+ (front-context-string . "#+TITLE: Sequoia")
  (rear-context-string)
  (position . 1))
 )

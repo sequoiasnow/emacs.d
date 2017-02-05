@@ -17,12 +17,23 @@ values of PATH and can not find command line tools. Since I use homebrew to mana
 most of my packages, let's add that to the path.
 
 #+BEGIN_SRC emacs-lisp
-  (setenv "PATH" (concat "/usr/local/bin:/usr/local/sbin:~/bin"
+  (setenv "PATH" (concat "/Library/TeX/texbin:/usr/local/bin:/usr/local/sbin:~/.cabal/bin:~/bin:/opt/local/bin:/opt/local/sbin:"
                          (getenv "PATH")))
-  (setq exec-path (append '("/usr/local/bin"
+  (setq exec-path (append `("/usr/local/bin"
                             "/usr/local/sbin"
-                            (expand-file-name "~/bin"))
+                            "/Library/Tex/texbin"
+                            "/opt/local/bin"
+                            "/opt/local/sbin"
+                            ,(expand-file-name "~/bin")
+                            ,(expand-file-name "~/.cabal/bin"))
                           exec-path))
+#+END_SRC
+
+Lets also configure the lisp enviroment to load files from ~/.emacs.d/lisp/
+
+#+BEGIN_SRC emacs-lisp
+  (setq load-path (cons (expand-file-name "~/.emacs.d/lisp") load-path))
+  (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/lisp"))
 #+END_SRC
 
 ** Package Archives
@@ -58,16 +69,36 @@ soft tabs or line numbers. Lets enable these, becasue its always kinda fun to
 measure how much work you've done with line numbers. While where there lets also
 make emacs show matching parenthasies.
 
+First the line numbers.
 #+BEGIN_SRC emacs-lisp
-  ;; Line numbers
-  (global-linum-mode)
-  (setq linum-format " %d ")
+  (global-linum-mode t)
+  (unless window-system
+    (add-hook 'linum-before-numbering-hook
+              (lambda ()
+                (setq-local linum-format-fmt
+                            (let ((w (length (number-to-string
+                                              (count-lines (point-min) (point-max))))))
+                              (concat "%" (number-to-string w) "d "))))))
 
-  ;; Soft Tabs
-  (setq indent-tabs-mode nil)
+  (defun linum-format-func (line)
+    (concat
+     (propertize (format linum-format-fmt line) 'face 'linum)
+     (propertize " " 'face 'mode-line)))
 
-  ;; Show matching parenthasies
+  (unless window-system
+    (setq linum-format 'linum-format-func))
+#+END_SRC
+
+Then the parenthasees
+#+BEGIN_SRC emacs-lisp
   (show-paren-mode 1)
+#+END_SRC
+
+Another terrible headache is tabs, tabs should exist only as spaces, not as
+weird tab hooks, to that end:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
 #+END_SRC
 
 Lastly, by default emacs creates backups in the weirdest, and most anoying 
@@ -78,6 +109,38 @@ local directory.
 #+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist `(("." . ,(concat user-emacs-directory
                                                  "backups"))))
+#+END_SRC
+** Fonts
+Fonts are somewhat important for emacs, the default is ok, but trust me, it gets really 
+boring after hours of staring at the same type designed in the nineties forever.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(font . "Fira Mono for Powerline"))
+#+END_SRC
+** Simple keybindings
+This is copied directly from a blog, which in turn copied it straight from irl.
+It's some simple code that allows for rapid drawing of comment boxes, making 
+that process much easier to accomplish.
+
+#+BEGIN_SRC emacs-lisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Full width comment box                                                 ;;
+  ;; from http://irreal.org/blog/?p=374                                     ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (defun bjm-comment-box (b e)
+    "Draw a box comment around the region but arrange for the region to extend to at least the fill column. Place the point after the comment box."
+
+    (interactive "r")
+
+    (let ((e (copy-marker e t)))
+      (goto-char b)
+      (end-of-line)
+      (insert-char ?  (- fill-column (current-column)))
+      (comment-box b e 1)
+      (goto-char e)
+      (set-marker e nil)))
+
+  (global-set-key (kbd "C-c b b") 'bjm-comment-box)
 #+END_SRC
 ** Install Packages **
 Throught this configuration we will install a variety of packages and configure
@@ -138,6 +201,8 @@ spacemacs. It works well with evil mode, and is easily configurable.
   (ensure-package-installed 'spaceline)
   (require 'spaceline-config)
   (spaceline-spacemacs-theme)
+  (setq powerline-default-seperator 'wave)
+  (spaceline-toggle-minor-modes-off)
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 #+END_SRC
 
@@ -152,12 +217,18 @@ makes the statusbar look horrible. This is a quick fix to prevent that
 ** Agressive Indent Mode
 Saying that agressive indent mode will help make your code readable is as much 
 an understatement as saying a preprocessor will make your css slightly more DRY.
-That's why I use it everywhere, because it is amazing.
+That's why I use it almost everywhere, because it is amazing.
 
 #+BEGIN_SRC emacs-lisp
   (ensure-package-installed 'aggressive-indent)
   (require 'aggressive-indent)
-  (global-aggressive-indent-mode 1)
+  (add-hook 'css-mode-hook #'aggressive-indent-mode)
+  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+  (add-hook 'c-mode #'aggressive-indent-mode)
+  (add-hook 'c++-mode #'aggressive-indent-mode)
+  (add-hook 'js-mode #'aggressive-indent-mode)
+  (add-hook 'php-mode #'aggressive-indent-mode)
+  (add-hook 'web-mode-hook #'aggressive-indent-mode)
 #+END_SRC
 
 That being said, despite how amazing it is it does have the one downside of not
@@ -166,6 +237,7 @@ removes it from those cases.
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'stylus-mode)
 #+END_SRC
 
 ** Paredit Mode
@@ -273,9 +345,11 @@ look.
   (ensure-package-installed 'sublime-themes
                             'color-theme-sanityinc-tomorrow)
   (setq custom-safe-themes t)
-  (load-theme 'sanityinc-tomorrow-bright t)
-#+END_SRC
+  (require 'snow-custom-simple-theme)
+  (require 'snow-mac-light-theme)
 
+  (load-theme 'snow-mac-light t)
+#+END_SRC
 
 * Languages
 There are thousands of programing languages. Luckily for me I only use about
@@ -316,6 +390,27 @@ I wanted to use web-mode to write my jsx.
         '(("jsx" . "\\.js[x]?\\'")))
 #+END_SRC
 
+Lets add one final bit of info to web mode, I prefer two space tabs for my work 
+on the web, and I think web mode should as well...
+
+#+BEGIN_SRC emacs-lisp
+  (defun my-setup-indent (n)
+    ;; java/c/c++
+    (setq c-basic-offset n)
+    ;; web development
+    (setq coffee-tab-width n) ; coffeescript
+    (setq javascript-indent-level n) ; javascript-mode
+    (setq js-indent-level n) ; js-mode
+    (setq js2-basic-offset n) ; js2-mode, in latest js2-mode, it's alias of js-indent-level
+    (setq web-mode-markup-indent-offset n) ; web-mode, html tag in html file
+    (setq web-mode-css-indent-offset n) ; web-mode, css in html file
+    (setq web-mode-code-indent-offset n) ; web-mode, js code in html file 
+    (setq css-indent-offset n) ; css-mode
+    )
+
+  (my-setup-indent 2)
+#+END_SRC
+
 ** PHP
 I rarely return to the ancient and powerful beast of the web, but when I do, I mean 
 buiseness. Luckily, emacs supports such dangerous late night jaunts to the land of 
@@ -330,3 +425,129 @@ of switiching to the php manual every ten seconds.
 To get started with pulling documentation, run the function 
 ~php-extras-generate-eldoc~.
 
+** Stylus
+Stylus is a javascript preprocessor for css. This just allows syntax highlighting at
+the moment.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'stylus-mode)
+#+END_SRC
+** Graphql
+This provides a simple interface for dealing with graphql files that are used to 
+define the schema as well as make calls to the database. This is a technique used
+mainly for front end development. More informatio can be found at 
+[[http://graphql.org/][GraphQl's Site]].
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'graphql-mode)
+#+END_SRC
+** Elm
+Elm is a usefull language that resembles a simplified haskell its incredibly
+usefull for smart web app development whith pure funcitons
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'elm-mode
+                            'flycheck
+                            'flycheck-elm)
+  (require 'elm-mode)
+  (require 'flycheck)
+  (with-eval-after-load 'flycheck
+    '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup))
+
+
+
+#+END_SRC
+** Haskell
+One of the greatest languages in human history in my opinion. The functional
+nature of haskell makes it great for building type safe programs. This emacs
+configuration allows syntax highlighting, as well as navigation, and tags.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'haskell-mode 'company-ghc)
+  (eval-after-load 'haskell-mode
+    '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
+  (custom-set-variables '(haskell-tags-on-save t))
+
+  (custom-set-variables
+   '(haskell-process-suggest-remove-import-lines t)
+   '(haskell-process-auto-import-loaded-modules t)
+   '(haskell-process-log t))
+  (eval-after-load 'haskell-mode '(progn
+                                    (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+                                    (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
+                                    (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
+                                    (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
+                                    (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
+                                    (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)))
+  (eval-after-load 'haskell-cabal '(progn
+                                     (define-key haskell-cabal-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
+                                     (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+                                     (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+                                     (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
+
+  (custom-set-variables '(haskell-process-type 'stack-ghci))
+
+  (autoload 'ghc-init "ghc" nil t)
+  (autoload 'ghc-debug "ghc" nil t)
+  (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+#+END_SRC
+** Markdown
+Markdown is the incredibly usefull syntactical sugar for github. While any true
+emacs user will make a good case for the superiority of org mode, and I myself
+can attest to its usefullness, there will come a time when you need to use markdown.
+The simple truth is, its too useful for github sourced project.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'mmm-mode)
+  (require 'mmm-mode)
+  (defun snow-mmm-markdown-auto-class (lang &optional submode)
+    "Define a mmm-mode class for LANG in `markdown-mode' using SUBMODE.
+  If SUBMODE is not provided, use `LANG-mode' by default."
+    (let ((class (intern (concat "markdown-" lang)))
+          (submode (or submode (intern (concat lang "-mode"))))
+          (front (concat "^```" lang "[\n\r]+"))
+          (back "^```"))
+      (mmm-add-classes (list (list class :submode submode :front front :back back)))
+      (mmm-add-mode-ext-class 'markdown-mode nil class)))
+
+  ;; Mode names that derive directly from the language name
+  (mapc 'snow-mmm-markdown-auto-class
+        '("awk" "bibtex" "c" "cpp" "css" "html" "latex" "lisp" "makefile"
+          "markdown" "python" "r" "ruby" "sql" "stata" "xml" "haskell" "javascript"
+          "json" "swift"))
+
+  ;; Add a simple binding in order to make parsing the buffer easier.
+  (global-set-key (kbd "C-c m") 'mmm-parse-buffer)
+#+END_SRC
+** SQL
+SQL may not be the best thing to use directly in a project, but it remains a factor,
+despite what we might want. To configure sql, lets add the following.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'sql-mode-hook
+            (lambda ()
+              (setq tab-width 4)))
+#+END_SRC
+* Org Mode
+Org mode is what this entire configuration is written in, its an incredibly
+usefull tool for writing literate programing.
+
+** Literate Programing
+This enables syntax hihglighting for org mode and a variety of languages.
+
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((clojure .t)
+     (sh . t)
+     (dot . t)
+     (emacs-lisp . t)
+     (ruby . t)
+     (haskell . t)))
+
+  (setq org-src-fontify-natively t)
+#+END_SRC
+** PDF Latex
+#+BEGIN_SRC emacs-lisp
+  (setq org-latex-create-formula-image-program 'dvipng)
+#+END_SRC
