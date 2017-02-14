@@ -348,7 +348,7 @@ look.
   (require 'snow-custom-simple-theme)
   (require 'snow-mac-light-theme)
 
-  (load-theme 'snow-mac-light t)
+  (load-theme 'snow-custom-simple t)
 #+END_SRC
 
 * Languages
@@ -463,15 +463,15 @@ nature of haskell makes it great for building type safe programs. This emacs
 configuration allows syntax highlighting, as well as navigation, and tags.
 
 #+BEGIN_SRC emacs-lisp
-  (ensure-package-installed 'haskell-mode 'company-ghc)
+  (ensure-package-installed 'haskell-mode)
   (eval-after-load 'haskell-mode
     '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
-  (custom-set-variables '(haskell-tags-on-save t))
 
   (custom-set-variables
    '(haskell-process-suggest-remove-import-lines t)
-   '(haskell-process-auto-import-loaded-modules t)
-   '(haskell-process-log t))
+   '(haskell-process-auto-import-loaded-modules nit)
+   '(haskell-process-log nil))
+
   (eval-after-load 'haskell-mode '(progn
                                     (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
                                     (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
@@ -487,9 +487,6 @@ configuration allows syntax highlighting, as well as navigation, and tags.
 
   (custom-set-variables '(haskell-process-type 'stack-ghci))
 
-  (autoload 'ghc-init "ghc" nil t)
-  (autoload 'ghc-debug "ghc" nil t)
-  (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 #+END_SRC
 ** Markdown
 Markdown is the incredibly usefull syntactical sugar for github. While any true
@@ -514,7 +511,7 @@ The simple truth is, its too useful for github sourced project.
   (mapc 'snow-mmm-markdown-auto-class
         '("awk" "bibtex" "c" "cpp" "css" "html" "latex" "lisp" "makefile"
           "markdown" "python" "r" "ruby" "sql" "stata" "xml" "haskell" "javascript"
-          "json" "swift"))
+          "json" "swift" "yaml"))
 
   ;; Add a simple binding in order to make parsing the buffer easier.
   (global-set-key (kbd "C-c m") 'mmm-parse-buffer)
@@ -527,6 +524,14 @@ despite what we might want. To configure sql, lets add the following.
   (add-hook 'sql-mode-hook
             (lambda ()
               (setq tab-width 4)))
+#+END_SRC
+** Elixir
+Elixir is the deviant child of Erlang and Ruby. And at that, it's
+pretty great.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'elixir-mode 'alchemist)
+  (setq alchemist-mix-command "/usr/local/bin/mix")
 #+END_SRC
 * Org Mode
 Org mode is what this entire configuration is written in, its an incredibly

@@ -166,7 +166,7 @@
 (require 'snow-custom-simple-theme)
 (require 'snow-mac-light-theme)
 
-(load-theme 'snow-mac-light t)
+(load-theme 'snow-custom-simple t)
 
 (ensure-package-installed 'cider 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
@@ -215,15 +215,15 @@
 (with-eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup))
 
-(ensure-package-installed 'haskell-mode 'company-ghc)
+(ensure-package-installed 'haskell-mode)
 (eval-after-load 'haskell-mode
   '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
-(custom-set-variables '(haskell-tags-on-save t))
 
 (custom-set-variables
  '(haskell-process-suggest-remove-import-lines t)
- '(haskell-process-auto-import-loaded-modules t)
- '(haskell-process-log t))
+ '(haskell-process-auto-import-loaded-modules nit)
+ '(haskell-process-log nil))
+
 (eval-after-load 'haskell-mode '(progn
                                   (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
                                   (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
@@ -238,10 +238,6 @@
                                    (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
 
 (custom-set-variables '(haskell-process-type 'stack-ghci))
-
-(autoload 'ghc-init "ghc" nil t)
-(autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
 (ensure-package-installed 'mmm-mode)
 (require 'mmm-mode)
@@ -259,7 +255,7 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 (mapc 'snow-mmm-markdown-auto-class
       '("awk" "bibtex" "c" "cpp" "css" "html" "latex" "lisp" "makefile"
         "markdown" "python" "r" "ruby" "sql" "stata" "xml" "haskell" "javascript"
-        "json" "swift"))
+        "json" "swift" "yaml"))
 
 ;; Add a simple binding in order to make parsing the buffer easier.
 (global-set-key (kbd "C-c m") 'mmm-parse-buffer)
@@ -267,6 +263,9 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 (add-hook 'sql-mode-hook
           (lambda ()
             (setq tab-width 4)))
+
+(ensure-package-installed 'elixir-mode 'alchemist)
+(setq alchemist-mix-command "/usr/local/bin/mix")
 
 (org-babel-do-load-languages
  'org-babel-load-languages
