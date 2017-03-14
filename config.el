@@ -53,6 +53,8 @@
 
 (add-to-list 'default-frame-alist '(font . "Fira Mono for Powerline"))
 
+(setq-default line-spacing 0.5)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Full width comment box                                                 ;;
 ;; from http://irreal.org/blog/?p=374                                     ;;
@@ -95,20 +97,44 @@
 
 (apply 'ensure-package-installed default-packages)
 
+(ensure-package-installed 'sublime-themes
+                          'color-theme-sanityinc-tomorrow
+                          'monokai-theme)
+(setq custom-safe-themes t)
+(require 'snow-custom-simple-theme)
+(require 'snow-mac-light-theme)
+
+(load-theme 'monokai t)
+
 (ensure-package-installed 'evil)
 (evil-mode 1)
 (setq evil-search-module 'evil-search)
 
-(ensure-package-installed 'spaceline)
-(require 'spaceline-config)
-(spaceline-spacemacs-theme)
-(setq powerline-default-seperator 'wave)
-(spaceline-toggle-minor-modes-off)
-(setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-
 (setq powerline-height 20)
 (setq powerline-raw " ")
 (setq ns-use-srgb-colorspace nil)
+
+;; Get rid of the stupid box around things.
+(ensure-package-installed 'spaceline)
+(require 'spaceline-config)
+(spaceline-toggle-minor-modes-off)
+(spaceline-helm-mode)
+(setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+(setq powerline-default-separator 'slant)
+(spaceline-spacemacs-theme)
+(set-face-attribute 'mode-line nil :box nil)
+;; Set the powerline faces. I'm not sure if this is the best way to do this.
+(set-face-attribute 'powerline-active1 nil
+                    :foreground "#eeeeec"
+                    :background "#6d44a4"
+                    :box nil)
+(set-face-attribute 'powerline-active2 nil
+                    :foreground "#ea614b"
+                    :background "#212026"
+                    :box nil)
+(set-face-attribute 'powerline-inactive1 nil :box nil)
+(set-face-attribute 'powerline-inactive2 nil :box nil)
+(spaceline-compile)
 
 (ensure-package-installed 'aggressive-indent)
 (require 'aggressive-indent)
@@ -159,14 +185,6 @@
 (add-hook 'emacs-lisp-mode-hook       'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'ielm-mode-hook             'turn-on-eldoc-mode)
-
-(ensure-package-installed 'sublime-themes
-                          'color-theme-sanityinc-tomorrow)
-(setq custom-safe-themes t)
-(require 'snow-custom-simple-theme)
-(require 'snow-mac-light-theme)
-
-(load-theme 'snow-custom-simple t)
 
 (ensure-package-installed 'cider 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))

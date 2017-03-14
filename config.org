@@ -110,12 +110,18 @@ local directory.
   (setq backup-directory-alist `(("." . ,(concat user-emacs-directory
                                                  "backups"))))
 #+END_SRC
+
 ** Fonts
 Fonts are somewhat important for emacs, the default is ok, but trust me, it gets really 
 boring after hours of staring at the same type designed in the nineties forever.
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist '(font . "Fira Mono for Powerline"))
+#+END_SRC
+
+Also add support for better line spacing.
+#+BEGIN_SRC emacs-lisp
+  (setq-default line-spacing 0.5)
 #+END_SRC
 ** Simple keybindings
 This is copied directly from a blog, which in turn copied it straight from irl.
@@ -179,6 +185,23 @@ but are still nice to have installed. These packages are installed below.
 
   (apply 'ensure-package-installed default-packages)
 #+END_SRC
+* Theme
+To each programer his theme. Emacs comes with several truly terrible themes, but 
+luckily, like everything else, themes can be moded and made anew. I tend to oscilate
+between spolsky for a lighter theme and tommorow-night-bright for a darker more intense 
+look.
+
+#+BEGIN_SRC emacs-lisp
+  (ensure-package-installed 'sublime-themes
+                            'color-theme-sanityinc-tomorrow
+                            'monokai-theme)
+  (setq custom-safe-themes t)
+  (require 'snow-custom-simple-theme)
+  (require 'snow-mac-light-theme)
+
+  (load-theme 'monokai t)
+#+END_SRC
+
 * Package Configuration
 ** Evil Mode
 Evil Mode is clearly the best part of using emacs, because its vim. Let's be 
@@ -197,15 +220,6 @@ keybindings, with emacs.
 Instead of using powerline actually, I use spaceline, the powerline fork for
 spacemacs. It works well with evil mode, and is easily configurable.
 
-#+BEGIN_SRC emacs-lisp
-  (ensure-package-installed 'spaceline)
-  (require 'spaceline-config)
-  (spaceline-spacemacs-theme)
-  (setq powerline-default-seperator 'wave)
-  (spaceline-toggle-minor-modes-off)
-  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-#+END_SRC
-
 Sadly, at least for my retina Macbook, there is a problem with spacemacs that
 makes the statusbar look horrible. This is a quick fix to prevent that
 
@@ -214,6 +228,34 @@ makes the statusbar look horrible. This is a quick fix to prevent that
   (setq powerline-raw " ")
   (setq ns-use-srgb-colorspace nil)
 #+END_SRC
+
+Sadly, the origional theme application to spaceine is a bit... rough. I like
+to override the colors to make it look more like org mode to fix this.
+
+#+BEGIN_SRC emacs-lisp
+  ;; Get rid of the stupid box around things.
+  (ensure-package-installed 'spaceline)
+  (require 'spaceline-config)
+  (spaceline-toggle-minor-modes-off)
+  (spaceline-helm-mode)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  (setq powerline-default-separator 'slant)
+  (spaceline-spacemacs-theme)
+  (set-face-attribute 'mode-line nil :box nil)
+  ;; Set the powerline faces. I'm not sure if this is the best way to do this.
+  (set-face-attribute 'powerline-active1 nil
+                      :foreground "#eeeeec"
+                      :background "#6d44a4"
+                      :box nil)
+  (set-face-attribute 'powerline-active2 nil
+                      :foreground "#ea614b"
+                      :background "#212026"
+                      :box nil)
+  (set-face-attribute 'powerline-inactive1 nil :box nil)
+  (set-face-attribute 'powerline-inactive2 nil :box nil)
+  (spaceline-compile)
+#+END_SRC
+
 ** Agressive Indent Mode
 Saying that agressive indent mode will help make your code readable is as much 
 an understatement as saying a preprocessor will make your css slightly more DRY.
@@ -333,22 +375,6 @@ from the wiki is to do the following:
   (add-hook 'emacs-lisp-mode-hook       'turn-on-eldoc-mode)
   (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'ielm-mode-hook             'turn-on-eldoc-mode)
-#+END_SRC
-
-* Theme
-To each programer his theme. Emacs comes with several truly terrible themes, but 
-luckily, like everything else, themes can be moded and made anew. I tend to oscilate
-between spolsky for a lighter theme and tommorow-night-bright for a darker more intense 
-look.
-
-#+BEGIN_SRC emacs-lisp
-  (ensure-package-installed 'sublime-themes
-                            'color-theme-sanityinc-tomorrow)
-  (setq custom-safe-themes t)
-  (require 'snow-custom-simple-theme)
-  (require 'snow-mac-light-theme)
-
-  (load-theme 'snow-custom-simple t)
 #+END_SRC
 
 * Languages

@@ -20,7 +20,7 @@
  '(haskell-tags-on-save t)
  '(package-selected-packages
    (quote
-    (alchemist elixir-mode highlight2clipboard swift3-mode json-mode vim-empty-lines-mode yasnippet yaml-mode web-mode swift-mode sublime-themes stylus-mode spaceline smooth-scrolling scss-mode rust-mode rainbow-delimiters php-extras pastels-on-dark-theme paredit mmm-mode markdown-mode magit helm graphql-mode flycheck-elm evil elm-mode dockerfile-mode company-ghc color-theme-sanityinc-tomorrow cider aggressive-indent))))
+    (monokai-theme color-theme-monaki color-theme-monokai apib-mode restclient alchemist elixir-mode highlight2clipboard swift3-mode json-mode vim-empty-lines-mode yasnippet yaml-mode web-mode swift-mode sublime-themes stylus-mode spaceline smooth-scrolling scss-mode rust-mode rainbow-delimiters php-extras pastels-on-dark-theme paredit mmm-mode markdown-mode magit helm graphql-mode flycheck-elm evil elm-mode dockerfile-mode company-ghc color-theme-sanityinc-tomorrow cider aggressive-indent))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
