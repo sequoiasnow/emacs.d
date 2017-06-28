@@ -194,14 +194,34 @@ look.
   (ensure-package-installed 'sublime-themes
                             'color-theme-sanityinc-tomorrow
                             'monokai-theme
-                            'darkokai-theme)
+                            'darkokai-theme
+                            'solarized-theme
+                            'atom-one-dark-theme)
   (setq custom-safe-themes t)
   ;; (require 'snow-custom-simple-theme)
   ;; (require 'snow-mac-light-theme)
 
-  (load-theme 'darkokai t)
+  (load-theme 'atom-one-dark t)
 #+END_SRC
 
+** Transparency
+While not strictly related to the use of a theme, transparency can make emacs 
+more fun, but should be optional, thus the transparency function
+
+#+BEGIN_SRC emacs-lisp
+ (defun toggle-transparency ()
+   (interactive)
+   (let ((alpha (frame-parameter nil 'alpha)))
+     (set-frame-parameter
+      nil 'alpha
+      (if (eql (cond ((numberp alpha) alpha)
+                     ((numberp (cdr alpha)) (cdr alpha))
+                     ;; Also handle undocumented (<active> <inactive>) form.
+                     ((numberp (cadr alpha)) (cadr alpha)))
+               100)
+          '(85 . 50) '(100 . 100)))))
+ (global-set-key (kbd "C-c t") 'toggle-transparency)
+#+END_SRC
 * Package Configuration
 ** Evil Mode
 Evil Mode is clearly the best part of using emacs, because its vim. Let's be 
@@ -212,8 +232,9 @@ Thats what evil mode is, basically allowing you to use vim states and
 keybindings, with emacs.
 
 #+BEGIN_SRC emacs-lisp
-  (ensure-package-installed 'evil)
+  (ensure-package-installed 'evil 'evil-vimish-fold)
   (evil-mode 1)
+  (evil-vimish-fold-mode 1)
   (setq evil-search-module 'evil-search)
 #+END_SRC
 ** Mode Line
@@ -372,7 +393,7 @@ The first task is to setup web-mode for javascript. Because I write a lot of rea
 I wanted to use web-mode to write my jsx.
 
 #+BEGIN_SRC emacs-lisp
-  (ensure-package-installed 'web-mode)
+  (ensure-package-installed 'web-mode 'rainbow-mode)
   (require 'web-mode)
   (add-to-list 'auto-mode-alist '("\\.js\\'"       . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx\\'"      . web-mode))
@@ -380,8 +401,34 @@ I wanted to use web-mode to write my jsx.
   (add-to-list 'auto-mode-alist '("\\.ms\\'"       . web-mode))
   (add-to-list 'auto-mode-alist '("\\.erb\\'"      . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.scss\\'"     . web-mode))
   (setq web-mode-content-types-alist
         '(("jsx" . "\\.js[x]?\\'")))
+  (add-hook 'web-mode-hook 'rainbow-mode)
+
+  ;; Typescript mode using tide.
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    ;; company is an optional dependency. You have to
+    ;; install it separately via package-install
+    ;; `M-x package-install [ret] company`
+    (company-mode +1))
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
+  (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+  (ensure-package-installed 'tide)
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                (setup-tide-mode))))
 #+END_SRC
 
 Lets add one final bit of info to web mode, I prefer two space tabs for my work 

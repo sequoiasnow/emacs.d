@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: AtomDoc
+# key: /***
+# --
+/**
+ * @$0 $1
+ * @description
+ *  $2
+ * @modifiers
+ *  $3
+ */
+$4

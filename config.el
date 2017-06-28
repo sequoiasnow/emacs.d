@@ -99,15 +99,31 @@
 (ensure-package-installed 'sublime-themes
                           'color-theme-sanityinc-tomorrow
                           'monokai-theme
-                          'darkokai-theme)
+                          'darkokai-theme
+                          'solarized-theme
+                          'atom-one-dark-theme)
 (setq custom-safe-themes t)
 ;; (require 'snow-custom-simple-theme)
 ;; (require 'snow-mac-light-theme)
 
-(load-theme 'darkokai t)
+(load-theme 'atom-one-dark t)
 
-(ensure-package-installed 'evil)
+(defun toggle-transparency ()
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+                    ((numberp (cdr alpha)) (cdr alpha))
+                    ;; Also handle undocumented (<active> <inactive>) form.
+                    ((numberp (cadr alpha)) (cadr alpha)))
+              100)
+         '(85 . 50) '(100 . 100)))))
+(global-set-key (kbd "C-c t") 'toggle-transparency)
+
+(ensure-package-installed 'evil 'evil-vimish-fold)
 (evil-mode 1)
+(evil-vimish-fold-mode 1)
 (setq evil-search-module 'evil-search)
 
 (require 'evil-mode-line)
@@ -168,7 +184,7 @@
 (add-to-list 'auto-mode-alist '("\\.cljs.*$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
 
-(ensure-package-installed 'web-mode)
+(ensure-package-installed 'web-mode 'rainbow-mode)
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'"       . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'"      . web-mode))
@@ -176,8 +192,34 @@
 (add-to-list 'auto-mode-alist '("\\.ms\\'"       . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'"      . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.scss\\'"     . web-mode))
 (setq web-mode-content-types-alist
       '(("jsx" . "\\.js[x]?\\'")))
+(add-hook 'web-mode-hook 'rainbow-mode)
+
+;; Typescript mode using tide.
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+(ensure-package-installed 'tide)
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
 
 (defun my-setup-indent (n)
   ;; java/c/c++
