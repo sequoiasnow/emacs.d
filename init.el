@@ -3,7 +3,7 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-(package-initialize)
+; (package-initialize)
 
 (require 'core (concat user-emacs-directory "core/core"))
 
@@ -15,5 +15,10 @@
  "typescript"
  "web")
 
-                                        ; (init-modeline)
+(add-ui-element "neotree")
+
+;; Use the only modeline available, spaceline
+(use-modeline "spaceline")
+
+
 

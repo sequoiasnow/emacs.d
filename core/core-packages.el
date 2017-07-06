@@ -20,8 +20,7 @@
   (setq
    load-path snow--base-load-path
    package-archives
-   '(("melpa" . "http://melpa.milkbox.net/packages/")
-     ("marmalade" . "https://marmalade-repo.org/packages/"))
+   '(("melpa" . "http://melpa.milkbox.net/packages/"))
    ;; Essentially makes use-package work with package.el
    use-package-always-ensure t)
   (package-initialize)
@@ -38,7 +37,11 @@
   (mapc (lambda (lang)
           (load (concat snow-modules-dir "lang/" lang))) langs))
 
-(defun init-modeline ()
-  (load (concat snow-modules-dir "ui/modeline")))
+(defun use-modeline (line)
+  (load (concat snow-modules-dir "ui/modeline/" line)))
+
+(defun add-ui-element (&rest elements)
+  (mapc (lambda (elem)
+          (load (concat snow-modules-dir "ui/" elem))) elements))
 
 (provide 'core-packages)

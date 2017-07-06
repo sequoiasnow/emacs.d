@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: ReactImport
-# key: impreact
-# --
-import React     from 'react'
-import PropTypes from 'prop-types'

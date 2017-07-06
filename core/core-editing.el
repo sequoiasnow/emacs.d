@@ -1,10 +1,5 @@
 ;; A variety of languages that are used for the projec.t
 
-(use-package rainbow-mode
-  :after web-mode
-  :config
-  (add-hook 'web-mode-hook 'raindow-mode))
-
 
 ;; Make life a bit more evil with the great and glorious evil mode
 (use-package evil
