@@ -1,1 +1,1 @@
-("~/Documents/Sites/studiosfontainebleau/" "~/.emacs.d/")
+("~/.emacs.d/" "~/Documents/Sites/studiosfontainebleau/")
