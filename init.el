@@ -7,18 +7,15 @@
 
 (require 'core (concat user-emacs-directory "core/core"))
 
-(snow-add-languages
- "clojure"
- "haskell"
- "markdown"
- "swift"
- "typescript"
- "web")
+;; In the words of Tim Alan, "Never Give Up. Never Surrender!" 
+(snow! :lang
+       clojure
+       haskell
+       markdown
+       swift
+       typescript
+       web
 
-(add-ui-element "neotree")
-
-;; Use the only modeline available, spaceline
-(use-modeline "spaceline")
-
-
-
+       :ui
+       neotree
+       modeline-spaceline)

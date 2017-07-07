@@ -32,16 +32,19 @@
             (setq snow--installed-packages (add-to-list 'snow--installed-packages package))
             (package-install package))) snow-core-packages))
 
+(defun require-module (module submodule)
+  "Very simple require function that does not check for repeated module, meaning it
+   can load multiple files, but I'm meaning to fix that."
+  (load (concat snow-modules-dir module "/" submodule)))
 
-(defun snow-add-languages (&rest langs)
-  (mapc (lambda (lang)
-          (load (concat snow-modules-dir "lang/" lang))) langs))
-
-(defun use-modeline (line)
-  (load (concat snow-modules-dir "ui/modeline/" line)))
-
-(defun add-ui-element (&rest elements)
-  (mapc (lambda (elem)
-          (load (concat snow-modules-dir "ui/" elem))) elements))
+(defmacro snow! (&rest modules)
+  "Load all the modules (a malformed plist with symbol keys). Have fun emacs!"
+  `(progn
+     ,@(let ((mode)
+             (value))
+         (dolist (m modules value)
+           (if (keywordp m)
+               (setq mode (substring (symbol-name m) 1))
+             (setq value (cons (list 'require-module mode (symbol-name m)) value)))))))
 
 (provide 'core-packages)

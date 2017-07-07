@@ -7,6 +7,11 @@
   :after spaceline
   :init
   (setq ns-use-srgb-colorspace nil)
-  :config (spaceline-all-the-icons-theme))
+  (setq powerline-default-separator 'utf-8)
+  (setq powerline-height 40)
+  :config
+  (spaceline-all-the-icons-theme)
+  (spaceline-all-the-icons--setup-git-ahead)
+  )
 
 

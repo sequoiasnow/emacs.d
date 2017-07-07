@@ -10,7 +10,9 @@
  ;; No more rediculous startup screen
  inhibit-startup-screen t
  ;; Spaces are better than tabs
- indent-tabs-mode nil)
+ indent-tabs-mode nil
+ ;; I'm picky about my tabs
+ tab-width 2)
 
 ;; Quicker saving.
 (fset 'yes-or-no-p 'y-or-n-p)

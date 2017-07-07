@@ -50,12 +50,13 @@
              (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package yasnippet
-             :config
-             (yas-global-mode 1))
+  :config
+  (yas-global-mode 1))
 
-(use-package helm-core
-             :config
-             (helm-mode 1))
+
+;; (use-package helm-core
+;;   :config
+;;   (helm-mode 1))
 
 ;; Enablwe eldoc in order to have a better overall editing experience for elisp
 (add-hooks '(emacs-lisp-mode-hook
