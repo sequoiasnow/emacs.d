@@ -16,6 +16,16 @@
        typescript
        web
 
+       :feature
+       evil
+       aggressive-indent
+       paredit
+       company
+       ivy
+       yasnippet
+       eldoc
+       dired
+
        :ui
        neotree
        modeline-spaceline)
