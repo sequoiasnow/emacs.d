@@ -19,8 +19,10 @@
 (defun snow-initialize ()
   (setq
    load-path snow--base-load-path
+   ;; Make sure elpa is added otherwise linum doesn't work
    package-archives
-   '(("melpa" . "http://melpa.milkbox.net/packages/"))
+   '(("gnu" . "https://elpa.gnu.org/packages/")
+     ("melpa" . "http://melpa.milkbox.net/packages/"))
    ;; Essentially makes use-package work with package.el
    use-package-always-ensure t)
   (package-initialize)

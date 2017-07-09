@@ -1,0 +1,20 @@
+ls -la
+which ndoe
+which node
+clear
+
+clear
+
+yarn start
+node
+clear
+
+claer
+clear
+
+clear
+
+./node_modules/.bin/tsc --version
+tsserver -v
+./node_modules/.bin/tsserver --version
+./node_modules/.bin/tsserver -v

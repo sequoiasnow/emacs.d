@@ -1,3 +1,6 @@
+![](./screenshots/full-ido.png)
+
+
 # Sequoia Snow's Emacs Configuration
 
 This is a **very simple** emacs configuration used by me personally,
@@ -11,3 +14,6 @@ M-x all-the-icons-install-fonts
 ```
 
 Also, if you have difficulties, open and close emacs a few times.
+
+![](./screenshots/one-frame.png)
+![](./screenshots/simple.png)

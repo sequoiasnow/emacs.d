@@ -61,4 +61,3 @@ remain largelly static across uses")
 (require 'core-ui)
 
 (provide 'core)
-

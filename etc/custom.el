@@ -5,13 +5,19 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("5310b88333fc64c0cb34a27f42fa55ce371438a55f02ac7a4b93519d148bd03d" default)))
+    ("f67652440b66223b66a4d3e9c0ddeddbf4a6560182fa38693bdc4d940ce43a2e" default)))
  '(package-selected-packages
    (quote
-    (all-the-icons-dired counsel all-the-icons-ivy avy ivy neotree spaceline-all-the-icons haskell-mode clojure-mode evil-anzu eldoc-eval projectile nlinum-hl nlinum-relative doom-themes nlinum tide-mode use-package tide rainbow-mode evil-vimish-fold atom-one-dark-theme yasnippet yaml-mode writeroom-mode web-mode swift-mode sublime-themes stylus-mode spaceline solarized-theme smooth-scrolling scss-mode rust-mode rainbow-delimiters php-extras paredit olivetti monokai-theme mmm-mode markdown-mode magit helm graphql-mode flycheck-elm evil elm-mode dockerfile-mode darkroom darkokai-theme company-ghc color-theme-sanityinc-tomorrow cider alchemist aggressive-indent))))
+    (git-gutter-fringe magit gitignore-mode yasnippet web-mode use-package tide swift-mode spaceline-all-the-icons rainbow-delimiters projectile popup paredit nlinum neotree mmm-mode markdown-mode helm-core haskell-mode exec-path-from-shell evil-vimish-fold doom-themes counsel company clojure-mode avy all-the-icons-ivy all-the-icons-dired aggressive-indent))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(mode-line ((t (:inherit nil :foreground "white" :background nil))))
+ '(mode-line-inactive ((t (:inherit nil :foreground "gray" :background nil :box nil))))
+ '(powerline-active1 ((t (:inherit nil :foreground "white" :background "SkyBlue4"))))
+ '(powerline-active2 ((t (:inherit nil :foreground "white" :background nil))))
+ '(powerline-inactive1 ((t (:inherit nil :foreground "SkyBlue4" :background nil))))
+ '(powerline-inactive2 ((t (:inherit nil :foreground "orange" :background nil))))
+ '(spaceline-highlight-face ((t (:inherit nil :foreground "SkyBlue1" :background "SkyBlue4")))))

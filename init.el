@@ -25,7 +25,10 @@
        yasnippet
        eldoc
        dired
+       git
 
        :ui
-       neotree
-       modeline-spaceline)
+       theme
+       neotree 
+       modeline-spaceline
+       nlinum)
