@@ -53,7 +53,6 @@ remain largelly static across uses")
 ;; Let's get the ball rolling
 (snow-initialize)
 
-
 ;; Here goes nothing...
 (require 'core-lib)
 (require 'core-os)

@@ -18,7 +18,7 @@
 
 (defun snow-initialize ()
   (setq
-   load-path snow--base-load-path
+   load-path (eval-when-compile snow--base-load-path)
    ;; Make sure elpa is added otherwise linum doesn't work
    package-archives
    '(("gnu" . "https://elpa.gnu.org/packages/")

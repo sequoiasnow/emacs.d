@@ -29,6 +29,6 @@
   (add-hook 'typescript-mode-hook #'setup-tide-mode)
   (add-hook 'web-mode-hook
             (lambda ()
-              (when (strin-equal "tsx" (file-name-extension buffer-file-name))
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
                 (setup-tide)))))
 
