@@ -18,3 +18,16 @@ clear
 tsserver -v
 ./node_modules/.bin/tsserver --version
 ./node_modules/.bin/tsserver -v
+cd ..
+cd ..
+ls -l
+mkdir screenshots
+mv ~/Desktop/Screen\ Shot\ 2017-07-08\ at\ 11.43.08\ PM.png screenshots/full-ido.png
+mv ~/Desktop/Screen\ Shot\ 2017-07-08\ at\ 11.36.40\ PM.png screenshots/one-frame.png
+mv ~/Desktop/Screen\ Shot\ 2017-07-08\ at\ 11.35.22\ PM.png screenshots/simple.png
+clear
+
+mv ~/Desktop/Screen\ Shot\ 2017-07-08\ at\ 11.47.28\ PM.png screenshots/full2.png
+open .
+cd ..
+yarn start
