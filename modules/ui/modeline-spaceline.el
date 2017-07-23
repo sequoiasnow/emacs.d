@@ -17,15 +17,14 @@
   (setq powerline-default-separator 'utf-8)
   (setq powerline-height 1.4))
 
-(use-package spaceline-all-the-icons 
+(use-package spaceline-all-the-icons
   :after (spaceline nlinum)
   :init 
   (setq spaceline--all-the-icons-seperator-type 'slant
         spaceline-all-the-icons-slim-render nil
         spaceline-all-the-icons--git-ahead 'commit
         spaceline-all-the-icons-icon-set-window-numbering 'square
-        spaceline-all-the-icons-seperator-type 'slant 
-        ) 
+        spaceline-all-the-icons-seperator-type 'slantg) 
   :config
   (spaceline-all-the-icons-theme)
   (spaceline-all-the-icons--setup-git-ahead)

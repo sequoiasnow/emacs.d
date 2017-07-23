@@ -2,6 +2,7 @@
   :mode "/\\.gitignore$")
 
 (use-package magit
+  :defer
   :commands (magit-status))
 
 (use-package git-gutter-fringe

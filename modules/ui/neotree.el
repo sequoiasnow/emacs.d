@@ -1,5 +1,6 @@
 (use-package projectile
-  :config (projectile-global-mode))
+  :config
+  (projectile-global-mode))
 
 (use-package neotree
   :after (projectile doom-themes evil)
