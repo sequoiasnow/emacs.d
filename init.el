@@ -7,7 +7,7 @@
 
 (require 'core (concat user-emacs-directory "core/core"))
 
-;; In the words of Tim Alan, "Never Give Up. Never Surrender!" 
+;; In the words of Tim Alan, "Never Give Up. Never Surrender!"
 (snow! :lang
        clojure
        haskell
@@ -26,9 +26,10 @@
        eldoc
        dired
        git
+       flycheck
 
        :ui
        theme
-       neotree 
+       neotree
        modeline-spaceline
        nlinum)
