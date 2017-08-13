@@ -24,7 +24,8 @@
     (neotree-toggle)
     (neotree-change-proj-dir))
 
-  (global-set-key (kbd "s-/") #'neotree-project-dir)
+  (global-set-key (kbd "s-/") 'neotree-project-dir)
+  (global-set-key (kbd "M-/") 'neotree-project-dir)
   (add-hook 'projectile-after-switch-project-root #'neotree-change-proj-dir)
 
   ;; Use doom to make neotree prettier

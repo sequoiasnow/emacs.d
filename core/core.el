@@ -59,4 +59,7 @@ remain largelly static across uses")
 (require 'core-editing)
 (require 'core-ui)
 
+;; Start the emacs server.
+(server-start)
+
 (provide 'core)

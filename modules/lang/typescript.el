@@ -10,11 +10,10 @@
     (eldoc-mode +1)
     (tide-hl-identifier-mode +1) 
     (company-mode +1))
-
   
-  (add-hook 'typescript-mode #'setup-tide-mode)
+  (add-hook 'typescript-mode #'snow-setup-tide-mode)
   (add-hook 'web-mode
             (lambda ()
               (when (string-equal "tsx" (file-name-extension buffer-file-name))
-                (setup-tide-mode)))))
+                (snow-setup-tide-mode)))))
 

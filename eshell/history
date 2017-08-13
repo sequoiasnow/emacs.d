@@ -31,3 +31,33 @@ mv ~/Desktop/Screen\ Shot\ 2017-07-08\ at\ 11.47.28\ PM.png screenshots/full2.pn
 open .
 cd ..
 yarn start
+yarn start
+cd ..
+ls -la
+echo "pretty sweet ehh"
+git commit
+fuck
+clear
+
+echo "eshell is awesome"
+ls
+pwd
+echo "you get the picture"
+git clone https://github.com/the1codemaster/bourgeoisie.git timer
+clear
+
+cd timer
+ls 
+rm -rf .git
+git init
+git add .
+git commit -m 'First commit'
+clear
+
+clear
+
+yarn install
+clear
+
+ls la
+yarn start
