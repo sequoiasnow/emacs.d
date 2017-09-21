@@ -1,8 +1,3 @@
-ls -la
-which ndoe
-which node
-clear
-
 clear
 
 yarn start
@@ -61,3 +56,73 @@ clear
 
 ls la
 yarn start
+yarn start
+yarn start
+curl https://goo.gl/qE3MFH
+curl https://bitbucket.org/!api/2.0/snippets/sevenmind/jk8n46/master/files/gcp-auth.sh
+https://goo.gl/V2tBp5 
+curl https://goo.gl/V2tBp5 
+curl -l https://goo.gl/V2tBp5 
+curl https://bitbucket.org/!api/2.0/snippets/sevenmind/ok9KM8/master/files/gcp-build.sh
+curl https://goo.gl/gQgw9R 
+curl https://bitbucket.org/!api/2.0/snippets/sevenmind/MbMdpz/master/files/helm-upgrade.sh
+ls -la
+npm run start
+cd ..
+helm update ingress .
+hel upgrade ingress .
+helm upgrade ingress .
+clear
+
+history | grep mix
+mix new mail7_db
+cd mail7_template/
+cd ../mail7_db
+mix test
+clear
+
+tree
+ls -la
+clear
+
+mix deps get
+mix deps.get
+npm run start
+helm search etcd-operator
+helm describe etcd-operator
+helm --help
+helm inspect stable/etcd-operator
+helm dependencies update
+helm upgrade shared . --namepsace=shared
+helm upgrade shared . --namespace=shared
+helm install stable/etcd-operator --name etcd-operator --namespace=shared
+helm upgrade shared . --namespace=shared
+history | grep helm | grep --
+history | grep helm | grep delete
+history | grep helm | grep rm
+history | grep helm 
+helm delete etcd-operator
+helm install . --name=shared --namespace=shared
+helm ls --all shared
+helm del --help
+helm del --purge shared
+helm del --purge shared
+clear
+
+clear
+
+helm upgrade shared . --namespace=shared
+mix deps.get
+cd ../../
+mix deps.get
+mix deps.get
+mix release.ini
+mix release.init
+mix deps.release
+mix release
+mix deps.release --env=prod
+mix deps.gets.release --env=prod
+mix release --env=prod
+./_build/dev/rel/mail7_umbrella/bin/mail7_umbrella foreground
+ _build/dev/rel/mail7_umbrella/bin/mail7_umbrella foreground
+exit

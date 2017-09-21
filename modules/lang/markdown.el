@@ -1,4 +1,5 @@
-(use-package markdown-mode :mode "\\.md$")
+(use-package markdown-mode :mode "\\.md$"
+  :config (add-hook 'markdown-mode-hook 'flyspell-mode))
 
 ;; MMM allows highlighting syntax blocks in markdown buffer.
 (use-package mmm-mode
@@ -18,8 +19,7 @@
     (mapc 'snow-mmm-markdown-auto-class
           '("awk" "bibtex" "c" "cpp" "css" "html" "latex" "lisp" "makefile"
             "markdown" "python" "r" "ruby" "sql" "stata" "xml" "haskell" "javascript"
-            "json" "swift" "yaml"))
+            "json" "swift" "yaml" "sh"))
 
     ;; Add a simple binding in order to make parsing the buffer easier.
-    (global-set-key (kbd "C-c m") 'mmm-parse-buffer)
-    ))
+    (global-set-key (kbd "C-c m") 'mmm-parse-buffer)))

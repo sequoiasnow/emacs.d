@@ -8,8 +8,11 @@
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.scss\\'"     . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tsx\\'"      . web-mode))
-  (setq web-mode-content-type-alist
-        '(("jsx" . "\\.js[x]?$"))))
+  (add-to-list 'auto-mode-alist '("\\.php\\'"      . web-mode))
+  
+  (setq web-mode-content-type-alist  '(("jsx" . "\\.js[x]?$")))
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-code-indent-offset 2))  
 
 (use-package tide
   :after web-mode

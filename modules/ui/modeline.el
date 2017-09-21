@@ -204,6 +204,12 @@ static char * segment_bar[] = {
 ;; Modeline Segments
 ;;
 
+(def-modeline-segment! buffer-position
+  (when (active)
+    (if (< (window-width) 80)
+        "  %l:%c "
+      "  %l:%c %p  ")))
+
 (def-modeline-segment! major-mode
   "Shows the current major mode in the buffer"
   (propertize
@@ -212,8 +218,10 @@ static char * segment_bar[] = {
 
 (def-modeline-segment! path
   (concat
-   (propertize (snow-modeline|buffer-path) 'face 'snow-modeline-buffer-path)
-   (propertize (snow-modeline|buffer-file) 'face 'snow-modeline-buffer-file)))
+   (propertize (snow-modeline|buffer-path)
+               'face (if (active) 'snow-modeline-buffer-path))
+   (propertize (snow-modeline|buffer-file)
+               'face (if (active) 'snow-modeline-buffer-file))))
 
 (def-modeline-segment! bar
   (propertize " " 'display
@@ -226,7 +234,7 @@ static char * segment_bar[] = {
 
 (def-modeline-segment! rocket
   "It's a nice rocket, what more do you want?"
-  (snow-modeline|get-icon "rocket"
+  (snow-modeline|get-icon (if (active) "rocket" "globe")
                           nil
                           (if (active)
                               'snow-modeline-rocket
@@ -234,7 +242,7 @@ static char * segment_bar[] = {
 
 (def-modeline-segment! git
   "Shows the current git branch"
-  (when (and vc-mode buffer-file-name)
+  (when (and vc-mode buffer-file-name (active))
     (let ((branch (substring vc-mode 5)))
       (snow-modeline|get-icon "git-branch"
                               branch
@@ -243,15 +251,17 @@ static char * segment_bar[] = {
 
 (def-modeline-segment! buffer-encoding
   "Displays the encoding and eol style of the buffer the same way Atom does."
-  (concat (pcase (coding-system-eol-type buffer-file-coding-system)
-            (0 "LF  ")
-            (1 "CRLF  ")
-            (2 "CR  "))
-          (let ((sys (coding-system-plist buffer-file-coding-system)))
-            (cond ((memq (plist-get sys :category) '(coding-category-undecided coding-category-utf-8))
-                   "UTF-8")
-                  (t (upcase (symbol-name (plist-get sys :name))))))
-          " "))
+  (if (and (active) (> (window-width) 100))
+      (concat (pcase (coding-system-eol-type buffer-file-coding-system)
+                (0 "LF  ")
+                (1 "CRLF  ")
+                (2 "CR  "))
+              (let ((sys (coding-system-plist buffer-file-coding-system)))
+                (cond ((memq (plist-get sys :category) '(coding-category-undecided coding-category-utf-8))
+                       "UTF-8")
+                      (t (upcase (symbol-name (plist-get sys :name))))))
+              " ")
+    " "))
 
 (def-modeline-segment! flycheck
   "Displays the flycheck status in the buffer with some nice icons."
@@ -261,12 +271,14 @@ static char * segment_bar[] = {
             (let-alist (flycheck-count-errors flycheck-current-errors)
               (let ((sum (+ (or .error 0) (or .warning 0))))
                 (if .error
-                    (snow-modeline|get-icon "circle-slash"
-                                            (number-to-string sum)
-                                            'snow-modeline-urgent)
-                  (snow-modeline|get-icon "alert"
-                                          (number-to-string sum)
-                                          'snow-modeline-warning))))
+                    (snow-modeline|get-icon
+                     "circle-slash"
+                     (number-to-string sum)
+                     (if (active) 'snow-modeline-urgent))
+                  (snow-modeline|get-icon
+                   "alert"
+                   (number-to-string sum)
+                   (if (active) 'snow-modeline-warning)))))
           (snow-modeline|get-icon "check" nil 'snow-modeline-info))
       (snow-modeline|get-icon "sync" nil 'font-lock-doc-face))))
 
@@ -275,7 +287,7 @@ static char * segment_bar[] = {
 ;;
 (def-modeline! main
   (bar " " rocket  path " " flycheck)
-  (buffer-encoding git " " major-mode "  %l:%c %p  "))
+  (buffer-encoding git " " major-mode buffer-position))
 
 
 (defun snow-modeline|set-face ()
@@ -287,7 +299,7 @@ static char * segment_bar[] = {
   "Create the modeline and set it as the default"
   (interactive)
   (setq-default mode-line-format nil)
-  (snow-modeline|set-face)
+  (snow-modeline|set-face) 
   ;; Set the actual modeline
   (snow-set-modeline 'main t))
 

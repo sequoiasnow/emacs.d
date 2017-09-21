@@ -14,6 +14,7 @@
        swift
        typescript
        web
+       elixir
 
        :feature
        evil
@@ -28,6 +29,7 @@
        flycheck
        pacman
        xkcd
+       dash
 
        :ui
        theme
