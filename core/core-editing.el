@@ -1,2 +1,6 @@
-;; It is only with emptyness that one can see great beauty...
+;; Make meta key work properly.
+(setq mac-option-key-is-meta t
+      mac-option-modifier 'meta)
+
+
 (provide 'core-editing)

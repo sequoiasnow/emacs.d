@@ -30,6 +30,7 @@
        pacman
        xkcd
        dash
+       org
 
        :ui
        theme
