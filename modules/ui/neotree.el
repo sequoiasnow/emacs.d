@@ -8,28 +8,28 @@
   (setq neo-theme (if (display-graphic-p) 'icons 'arrown))
   :config
   ;; When a project changes, also change neotree
-  (defun neotree-change-proj-dir () 
+  (defun neotree-change-proj-dir ()
     "Changes the neotree directory to the currnet project"
-    (let ((project-dir (projectile-project-root)) 
-          (file-name   (buffer-file-name)))
-      (if project-dir
-          (when (neo-global--window-exists-p)
-            (neotree-dir project-dir)
-            (neotree-find file-name))
-        (message "Could not find git project root."))))
+    (interactive)
+    (when (vc-root-dir)
+      (neotree-dir (vc-root-dir))
+      (neotree-find (buffer-file-name))))
+  (global-set-key (kbd "M-n") 'neotree-change-proj-dir)
 
   (defun neotree-project-dir ()
     "Open NeoTree using the git root."
-    (interactive)      
-    (neotree-toggle)
-    (neotree-change-proj-dir))
+    (interactive) 
+    (progn (neotree-change-proj-dir) 
+           (neotree-toggle)))
 
-  (global-set-key (kbd "s-/") 'neotree-project-dir)
-  (global-set-key (kbd "M-/") 'neotree-project-dir)
+  (global-set-key (kbd "s-/") 'neotree-toggle)
+  (global-set-key (kbd "M-/") 'neotree-toggle)
   (add-hook 'projectile-after-switch-project-root #'neotree-change-proj-dir)
 
   ;; Use doom to make neotree prettier
+  (setq doom-neotree-file-icons t)
   (doom-themes-neotree-config)
+
   ;; Also include evil keybindings
   (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
   (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)

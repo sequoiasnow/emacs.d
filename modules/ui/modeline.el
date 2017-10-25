@@ -290,6 +290,8 @@ static char * segment_bar[] = {
   (bar " " rocket  path " " flycheck)
   (buffer-encoding git " " major-mode buffer-position))
 
+(def-modeline! empty ())
+
 
 (defun snow-modeline|set-face ()
   "Set's the face of the modeline to look as stunning as it does :-]"
@@ -305,5 +307,10 @@ static char * segment_bar[] = {
   (snow-set-modeline 'main t))
 
 (add-hook 'after-init-hook 'snow-modeline|init)
+
+;; Don't show modeline for neotree
+(add-hook 'neotree-mode-hook
+          (lambda ()
+            (setq mode-line-format nil)))
 
 (provide 'modeline)
