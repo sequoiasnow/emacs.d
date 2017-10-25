@@ -11,3 +11,11 @@
   :config
   (global-flycheck-mode))
 
+(use-package flyspell
+  :init
+  (add-hook 'prog-mode-hook
+            (lambda ()
+              (flyspell-prog-mode)))
+  (add-hook 'text-mode-hook
+            (lambda ()
+              (flyspell-mode 1))))

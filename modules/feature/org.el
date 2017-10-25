@@ -13,3 +13,21 @@
 ;; Allow some more literate programming.
 (setq org-src-fontify-natively t)
 
+;; Setup latex properly
+(require 'ox-latex)
+(unless (boundp 'org-latex-classes)
+  (setq org-latex-classes nil))
+
+;; Sample article
+(add-to-list 'org-latex-classes
+             '("article"
+               "\\documentclass{article}
+                  \\usepackage{amsmath}
+                  \\usepackage{amssymb}
+                  \\usepackage{mathrsfs}
+               [NO-DEFAULT-PACKAGES]
+               [NO-PACKAGES]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))

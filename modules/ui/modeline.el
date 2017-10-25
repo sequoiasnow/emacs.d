@@ -27,15 +27,16 @@
 (defun snow-modeline|get-icon (icon &optional text face voffset)
   "Displays an octicon ICON with FACE, followed by TEXT. Uses
 `all-the-icons-octicon' to fetch the icon."
-  (concat
-   " "
-   (when icon
-     (concat
-      (all-the-icons-octicon icon :face face :height 1 :v-adjust (or voffset -0.05))
-      (if text (propertize " " 'face 'variable-pitch))))
-   (when text
-     (propertize text 'face face))
-   (if vc-mode "  " " ")))
+  (when (display-graphic-p)
+    (concat
+     " "
+     (when icon
+       (concat
+        (all-the-icons-octicon icon :face face :height 1 :v-adjust (or voffset -0.05))
+        (if text (propertize " " 'face 'variable-pitch))))
+     (when text
+       (propertize text 'face face))
+     (if vc-mode "  " " "))))
 
 (defun snow-modeline|buffer-file ()
   "The name of the file without all other directory nonsense"

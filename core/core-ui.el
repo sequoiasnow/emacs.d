@@ -14,6 +14,9 @@
  ;; I'm picky about my tabs
  tab-width 2)
 
+;; Native fullscreen
+(setq-default ns-use-native-fullscreen t)
+
 ;; Quicker saving.
 (fset 'yes-or-no-p 'y-or-n-p)
 

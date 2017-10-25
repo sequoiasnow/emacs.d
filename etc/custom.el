@@ -9,7 +9,7 @@
  '(org-ellipsis "  ")
  '(package-selected-packages
    (quote
-    (graphql-mode auto-org-md rainbow-mode dash-at-point counsel-dash writeroom-mode json-mode elixir-mode apache-mode yaml-mode dockerfile-mode sass-mode dashboard anything-git-files git all-the-icons-gnus pacmacs xkcd evil git-gutter-fringe magit gitignore-mode yasnippet web-mode use-package tide swift-mode spaceline-all-the-icons rainbow-delimiters projectile popup paredit nlinum neotree mmm-mode markdown-mode helm-core haskell-mode exec-path-from-shell evil-vimish-fold doom-themes counsel company clojure-mode avy all-the-icons-ivy all-the-icons-dired aggressive-indent))))
+    (sublimity graphql-mode auto-org-md rainbow-mode dash-at-point counsel-dash writeroom-mode json-mode elixir-mode apache-mode yaml-mode dockerfile-mode sass-mode dashboard anything-git-files git all-the-icons-gnus pacmacs xkcd evil git-gutter-fringe magit gitignore-mode yasnippet web-mode use-package tide swift-mode spaceline-all-the-icons rainbow-delimiters projectile popup paredit nlinum neotree mmm-mode markdown-mode helm-core haskell-mode exec-path-from-shell evil-vimish-fold doom-themes counsel company clojure-mode avy all-the-icons-ivy all-the-icons-dired aggressive-indent))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
