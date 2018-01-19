@@ -8,6 +8,7 @@
     "..XX...." 
     "....XX.."
     "......XX")
+  (setq flycheck-display-errors-function nil)
   :config
   (global-flycheck-mode))
 

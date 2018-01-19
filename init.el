@@ -15,6 +15,8 @@
        typescript
        web
        elixir
+       rust
+       c
 
        :feature
        evil

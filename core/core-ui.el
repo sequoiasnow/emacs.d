@@ -15,7 +15,12 @@
  tab-width 2)
 
 ;; Native fullscreen
-(setq-default ns-use-native-fullscreen t)
+(setq-default ns-use-native-fullscreen t
+              mac-use-native-fullscreent t)
+(defun toggle-fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen
+                       (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))
 
 ;; Quicker saving.
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -37,5 +42,9 @@
               100)
          '(85 . 50) '(100 . 100)))))
 (global-set-key (kbd "C-c t") 'snow-ui|toggle-transparency)
+
+;; Set the default font.
+(add-to-list 'default-frame-alist
+             '(font . "Menlo"))
 
 (provide 'core-ui)
