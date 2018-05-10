@@ -295,6 +295,7 @@ static char * segment_bar[] = {
 
 (defun snow-modeline|set-face ()
   "Set's the face of the modeline to look as stunning as it does :-]"
+  (interactive)
   (set-face-background 'mode-line "#39393D")
   (set-face-background 'mode-line-inactive "#232425"))
 
@@ -302,7 +303,6 @@ static char * segment_bar[] = {
   "Create the modeline and set it as the default"
   (interactive)
   (setq-default mode-line-format nil)
-  (snow-modeline|set-face) 
   ;; Set the actual modeline
   (snow-set-modeline 'main t))
 

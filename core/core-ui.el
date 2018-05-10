@@ -12,7 +12,18 @@
  ;; Spaces are better than tabs
  indent-tabs-mode nil
  ;; I'm picky about my tabs
- tab-width 2)
+ tab-width 2
+ ;; remove continuation arrow on right fringe
+ fringe-indicator-alist (delq (assq 'continuation fringe-indicator-alist)
+                              fringe-indicator-alist))
+
+;; Remove the window-frame
+(setq-default window-divider-default-places t
+              window-divider-default-bottom-width 0
+              window-divider-default-right-width 1)
+(window-divider-mode)
+
+
 
 ;; Native fullscreen
 (setq-default ns-use-native-fullscreen t
@@ -22,6 +33,12 @@
   (set-frame-parameter nil 'fullscreen
                        (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))
 
+(defun snow-ui|no-fringes-in-minibuffer ()
+  "Disable fringes in the minibuffer window."
+  (set-window-fringes (minibuffer-window) 0 0 nil))
+(add-hook 'minibuffer-setup-hook 'snow-ui|toggle-transparency)
+
+
 ;; Quicker saving.
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -29,6 +46,13 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+
+;; Simple fix for frozen emacs shell
+(defun snow|eshell-clear ()
+  "Clear the eshell buffer."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
 
 (defun snow-ui|toggle-transparency ()
   (interactive)

@@ -16,6 +16,7 @@
        web
        elixir
        rust
+       latex
        c
 
        :feature

@@ -1,45 +1,3 @@
-
-claer
-clear
-
-clear
-
-./node_modules/.bin/tsc --version
-tsserver -v
-./node_modules/.bin/tsserver --version
-./node_modules/.bin/tsserver -v
-cd ..
-cd ..
-ls -l
-mkdir screenshots
-mv ~/Desktop/Screen\ Shot\ 2017-07-08\ at\ 11.43.08\ PM.png screenshots/full-ido.png
-mv ~/Desktop/Screen\ Shot\ 2017-07-08\ at\ 11.36.40\ PM.png screenshots/one-frame.png
-mv ~/Desktop/Screen\ Shot\ 2017-07-08\ at\ 11.35.22\ PM.png screenshots/simple.png
-clear
-
-mv ~/Desktop/Screen\ Shot\ 2017-07-08\ at\ 11.47.28\ PM.png screenshots/full2.png
-open .
-cd ..
-yarn start
-yarn start
-cd ..
-ls -la
-echo "pretty sweet ehh"
-git commit
-fuck
-clear
-
-echo "eshell is awesome"
-ls
-pwd
-echo "you get the picture"
-git clone https://github.com/the1codemaster/bourgeoisie.git timer
-clear
-
-cd timer
-ls 
-rm -rf .git
-git init
 git add .
 git commit -m 'First commit'
 clear
@@ -126,3 +84,45 @@ echo "hello world" | ./count
 echo "hello world" | ./count lines
 echo "hello \t world 		you" | ./count tabs
 gcc count.c -o count
+ls
+cd ~/Documents/Sites/postyonote.com/
+stack init PostYoNote
+stack new PostYoNote
+clear
+
+ls -la
+tree
+vi .gitignore
+emacs
+vi ~/.zshrc
+helm --help
+helm create --help
+helm create redis
+helm create postgres
+helm create rabbitmq
+tree
+git init
+git add .
+git commit -m 'First commit'
+clear
+
+tree
+helm --help
+helm status shared
+helm status notreallythere
+history | grep helm
+ls
+ls- la
+ls -la
+tree
+mv redis services
+mv rabbitmq services
+mv postgres services
+tree
+helm search patroni
+clear
+
+ls
+cd services
+ls 
+zsh

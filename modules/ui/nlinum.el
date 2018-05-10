@@ -17,7 +17,6 @@
 
   (add-hook 'nlinum-mode-hook #'snow-linum-format))
 
-
 ;; Highlight the current line
 (use-package hl-line
   :after evil

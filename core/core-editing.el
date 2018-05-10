@@ -3,7 +3,6 @@
       mac-option-modifier 'meta)
 
 ;; Set the eshell command prompt
-(setq eshell-prompt-function
-      (lambda () "λ "))
+(setq eshell-prompt-regexp "^[^λ]+ λ ")
 
 (provide 'core-editing)

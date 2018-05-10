@@ -1,6 +1,7 @@
-(use-package all-the-icons-ivy
-  :after all-the-icons
-  :config (all-the-icons-ivy-setup))
+(when (display-graphic-p)
+  (use-package all-the-icons-ivy
+    :after all-the-icons
+    :config (all-the-icons-ivy-setup)))
 
 (use-package counsel
   :commands (ivy-mode)
