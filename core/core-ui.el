@@ -33,10 +33,11 @@
   (set-frame-parameter nil 'fullscreen
                        (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))
 
+
 (defun snow-ui|no-fringes-in-minibuffer ()
   "Disable fringes in the minibuffer window."
   (set-window-fringes (minibuffer-window) 0 0 nil))
-(add-hook 'minibuffer-setup-hook 'snow-ui|toggle-transparency)
+(add-hook 'minibuffer-setup-hook #'snow-ui|no-fringes-in-minibuffer)
 
 
 ;; Quicker saving.
@@ -69,6 +70,6 @@
 
 ;; Set the default font.
 (add-to-list 'default-frame-alist
-             '(font . "Menlo"))
+             '(font . "Source Code Pro"))
 
 (provide 'core-ui)
