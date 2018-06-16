@@ -3,14 +3,14 @@
   (add-to-list 'auto-mode-alist '("\\.js\\'"       . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx\\'"      . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html\\'"     . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.scss\\'"     . web-mode))
   (add-to-list 'auto-mode-alist '("\\.ms\\'"       . web-mode))
   (add-to-list 'auto-mode-alist '("\\.erb\\'"      . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.scss\\'"     . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tsx\\'"      . web-mode))
   (add-to-list 'auto-mode-alist '("\\.php\\'"      . web-mode))
-  
-  (setq web-mode-content-type-alist  '(("jsx" . "\\.js[x]?$")))
+
+  (setq web-mode-content-types-alist  '(("jsx" . "\\.js[x]?$")))
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-code-indent-offset 2))  
 
@@ -35,3 +35,4 @@
               (when (string-equal "tsx" (file-name-extension buffer-file-name))
                 (setup-tide)))))
 
+(use-package scss-mode)

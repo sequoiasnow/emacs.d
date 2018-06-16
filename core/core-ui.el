@@ -23,8 +23,15 @@
               window-divider-default-right-width 1)
 (window-divider-mode)
 
+;; Ensure natural titlebar
+(add-to-list 'default-frame-alist
+             '(ns-transparent-titlebar . t))
 
+;; Remove titlebar info
+(setq ns-use-proxy-icon nil)
+(setq-default frame-title-format nil)
 
+                                        ;
 ;; Native fullscreen
 (setq-default ns-use-native-fullscreen t
               mac-use-native-fullscreent t)
@@ -70,6 +77,6 @@
 
 ;; Set the default font.
 (add-to-list 'default-frame-alist
-             '(font . "Source Code Pro"))
+             '(font . "Fira Mono"))
 
 (provide 'core-ui)

@@ -1,16 +1,3 @@
-git add .
-git commit -m 'First commit'
-clear
-
-clear
-
-yarn install
-clear
-
-ls la
-yarn start
-yarn start
-yarn start
 curl https://goo.gl/qE3MFH
 curl https://bitbucket.org/!api/2.0/snippets/sevenmind/jk8n46/master/files/gcp-auth.sh
 https://goo.gl/V2tBp5 
@@ -126,3 +113,16 @@ ls
 cd services
 ls 
 zsh
+npm init =y
+npm init -y
+npm install webpack webpack-cli --save-dev
+npm install --save-dev autoprefixer cssnano postcss-loader 
+npm install --save-dev autoprefixer cssnano postcss-loader
+clear
+
+webpack
+npm build
+npm run build
+npm run build
+npm run build
+exit

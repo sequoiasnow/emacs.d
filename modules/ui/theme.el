@@ -3,7 +3,7 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-one t))
+  (load-theme 'doom-dracula t))
 
 (use-package solaire-mode
   :config
@@ -12,14 +12,13 @@
   ;; To enable solaire-mode unconditionally for certain modes:
   (add-hook 'ediff-prepare-buffer-hook #'solaire-mode)
 
-  ;; highlight the minibuffer when it is activated:
-  (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer)
 
   (defun snow|recolor-solaire-fringes ()
-    (if (funcall solaire-mode-real-buffer-fn (current-buffer))
-        (set-face-attribute 'fringe nil :background nil)))
+    (unless (solaire-mode--real-buffer-fn (current-buffer))
+      (set-window-fringes (get-buffer-window (current-buffer)) 0 0 nil)))
 
-  (add-hook 'solaire-mode-hook 'snow|recolor-solaire-fringes)
+  (add-hook 'after-change-major-mode-hook 'snow|recolor-solaire-fringes)
+  (add-hook 'ediff-prepare-buffer-hook 'snow|recolor-solaire-fringes)
 
   ;; if the bright and dark background colors are the wrong way around, use this
   ;; to switch the backgrounds of the `default` and `solaire-default-face` faces.
