@@ -6,6 +6,20 @@
   :config
   (latex-preview-pane-enable))
 
+;; Nice PdfView for Retina screens
+(use-package pdf-tools
+  :config
+  (setq pdf-view-midnight-colors `(,(face-attribute 'default :foreground) .
+                                   ,(face-attribute 'default :background)))
+
+  (setq pdf-view-use-scaling nil)
+  (setq pdf-view-use-imagemagick t)
+  
+  (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
+  
+  (add-hook 'pdf-view-mode-hook (lambda ()
+                                  (pdf-view-midnight-minor-mode))))
+
 ;; Auto complete for Latex by AUCTex
 (use-package auctex
   :defer t
