@@ -6,14 +6,14 @@
   :config
   (latex-preview-pane-enable))
 
+;; Better doc view rendering
+(setq doc-view-resolution 300)
+
 ;; Nice PdfView for Retina screens
 (use-package pdf-tools
   :config
   (setq pdf-view-midnight-colors `(,(face-attribute 'default :foreground) .
                                    ,(face-attribute 'default :background)))
-
-  (setq pdf-view-use-scaling nil)
-  (setq pdf-view-use-imagemagick t)
   
   (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
   

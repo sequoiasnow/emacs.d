@@ -13,6 +13,12 @@
 ;; Allow some more literate programming.
 (setq org-src-fontify-natively t)
 
+(custom-set-faces
+ '(org-block-begin-line nil)
+ '(org-block nil)
+ '(org-block-end-line nil))
+
+
 ;; Setup latex properly
 (require 'ox-latex)
 (unless (boundp 'org-latex-classes)

@@ -22,7 +22,8 @@
    ;; Make sure elpa is added otherwise linum doesn't work
    package-archives
    '(("gnu" . "https://elpa.gnu.org/packages/")
-     ("melpa" . "http://melpa.milkbox.net/packages/"))
+     ("melpa" . "http://melpa.milkbox.net/packages/")
+     ("org". "https://orgmode.org/elpa"))
    ;; Essentially makes use-package work with package.el
    use-package-always-ensure t)
   (package-initialize)
