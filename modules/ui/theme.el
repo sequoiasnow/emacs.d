@@ -3,7 +3,7 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-dracula t))
+  (load-theme 'doom-peacock t))
 
 (use-package solaire-mode
   :disabled ;; Until margin highlighting is ok again
