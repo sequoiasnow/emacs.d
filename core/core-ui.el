@@ -2,7 +2,7 @@
  blink-matching-paren nil
  cursor-in-non-selected-windows nil
  highlight-nonselected-windows nil
- indicate-buffer-boundaries nil
+ indicate-buffer-boundaries t
  indicate-empty-lines nil
  ;; No more distracting sounds and lights.
  ring-bell-function #'ignore
@@ -31,10 +31,10 @@
 (setq ns-use-proxy-icon nil)
 (setq-default frame-title-format nil)
 
-                                        ;
 ;; Native fullscreen
 (setq-default ns-use-native-fullscreen t
               mac-use-native-fullscreent t)
+
 (defun toggle-fullscreen ()
   (interactive)
   (set-frame-parameter nil 'fullscreen
@@ -73,10 +73,9 @@
                     ((numberp (cadr alpha)) (cadr alpha)))
               100)
          '(85 . 50) '(100 . 100)))))
-(global-set-key (kbd "C-c t") 'snow-ui|toggle-transparency)
+(global-set-key (kbd "C-c C-t") 'snow-ui|toggle-transparency)
 
 ;; Set the default font.
-(add-to-list 'default-frame-alist
-             '(font . "Fira Mono"))
+(add-to-list 'default-frame-alist '(font . "Hack"))
 
 (provide 'core-ui)

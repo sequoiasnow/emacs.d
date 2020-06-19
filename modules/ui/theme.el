@@ -1,9 +1,14 @@
+(use-package color-theme-modern)
 (use-package doom-themes
-  :init 
+  :init
   (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t)
+        doom-themes-enable-italic nil)
   :config
-  (load-theme 'doom-peacock t))
+  (load-theme 'doom-outrun-electric t)
+
+  ;; Disable italic comments
+  (set-face-italic 'font-lock-comment-face nil))
+
 
 (use-package solaire-mode
   :disabled ;; Until margin highlighting is ok again

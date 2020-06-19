@@ -34,6 +34,9 @@ remain largelly static across uses")
  ad-redefinition-action 'accept
  )
 
+;; Use zsh
+(setenv "SHELL" "/bin/zsh")
+
 ;; Move custom definitions outside of init.el
 (setq custom-file (concat snow-etc-dir "custom.el"))
 (load custom-file t t)
@@ -45,6 +48,14 @@ remain largelly static across uses")
       inhibit-default-init t
       initial-major-mode 'fundamental-mode
       initial-scratch-message nil)
+
+;; Ensure we can access brew binaries
+(setq exec-path (append exec-path '("/usr/local/bin")))
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+
+;; Ensure we can access haskell binaries
+(add-to-list 'exec-path (expand-file-name "~/.cabal/bin"))
+(add-to-list 'exec-path (expand-file-name "~/.local/bin"))
 
 ;; Allow the loading of the files.
 (require 'cl-lib)

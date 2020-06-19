@@ -19,11 +19,15 @@
 (defun snow-initialize ()
   (setq
    load-path (eval-when-compile snow--base-load-path)
+
+   ;; Fix signature verification
+   gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
+   package-check-signature nil
+
    ;; Make sure elpa is added otherwise linum doesn't work
    package-archives
    '(("gnu" . "https://elpa.gnu.org/packages/")
-     ("melpa" . "http://melpa.milkbox.net/packages/")
-     ("org". "https://orgmode.org/elpa"))
+     ("melpa" . "http://melpa.milkbox.net/packages/"))
    ;; Essentially makes use-package work with package.el
    use-package-always-ensure t)
   (package-initialize)

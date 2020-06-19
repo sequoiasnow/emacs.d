@@ -97,7 +97,7 @@ static char * segment_bar[] = {
   :group 'snow-modeline)
 
 (defface snow-modeline-buffer-file
-  '((t (:inherit mode-line-buffer-id)))
+  '((t (:inherit mode-line-buffer-id :bold t)))
   "Face used for the filename part of the modeline buffer"
   :group 'snow-modeline)
 
@@ -142,12 +142,12 @@ static char * segment_bar[] = {
   :group 'snow-modeline)
 
 (defface snow-modeline-rocket
-  `((t (:foreground ,(face-foreground 'cursor nil t))))
+  `((t (:foreground ,(face-background 'cursor nil t))))
   "The face of the rocket icon in the modeline"
   :group 'snow-modeline)
 
 (defface snow-modeline-inactive-rocket
-   `((t (:foreground ,(face-foreground 'fringe nil t))))
+  `((t (:foreground ,(face-foreground 'fringe nil t))))
   "The face of the rocket icon on the inactive modeline"
   :group 'snow-modeline)
 
@@ -222,7 +222,7 @@ static char * segment_bar[] = {
    (propertize (snow-modeline|buffer-path)
                'face (if (active) 'snow-modeline-buffer-path))
    (propertize (snow-modeline|buffer-file)
-               'face (if (active) 'snow-modeline-buffer-file))))
+               'face (if (active) 'snow-modeline-info))))
 
 (def-modeline-segment! bar
   (propertize " " 'display
@@ -296,8 +296,7 @@ static char * segment_bar[] = {
 (defun snow-modeline|set-face ()
   "Set's the face of the modeline to look as stunning as it does :-]"
   (interactive)
-  (set-face-background 'mode-line "#39393D")
-  (set-face-background 'mode-line-inactive "#232425"))
+  (set-face-foreground 'mode-line (face-foreground 'mode-line-buffer-id nil)))
 
 (defun snow-modeline|init ()
   "Create the modeline and set it as the default"
@@ -307,6 +306,7 @@ static char * segment_bar[] = {
   (snow-set-modeline 'main t))
 
 (add-hook 'after-init-hook 'snow-modeline|init)
+(add-hook 'after-init-hook 'snow-modeline|set-face)
 
 ;; Don't show modeline for neotree
 (add-hook 'neotree-mode-hook

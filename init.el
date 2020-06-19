@@ -18,6 +18,8 @@
        rust
        latex
        c
+       cl
+       vue
 
        :feature
        evil
@@ -34,6 +36,7 @@
        xkcd
        dash
        org
+       writing
 
        :ui
        theme

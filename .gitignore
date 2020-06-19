@@ -13,3 +13,8 @@ bookmarks
 xkcd
 ede-projects.el
 projectile-bookmarks.eld
+modules/feature/slack.el
+custom
+transient
+eshell
+cache
