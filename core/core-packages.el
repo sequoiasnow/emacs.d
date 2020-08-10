@@ -20,16 +20,10 @@
   (setq
    load-path (eval-when-compile snow--base-load-path)
 
-   ;; Fix signature verification
-   gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
-   package-check-signature nil
-
    ;; Make sure elpa is added otherwise linum doesn't work
    package-archives
    '(("gnu" . "https://elpa.gnu.org/packages/")
-     ("melpa" . "http://melpa.milkbox.net/packages/"))
-   ;; Essentially makes use-package work with package.el
-   use-package-always-ensure t)
+     ("melpa" . "https://melpa.org/packages/")))
   (package-initialize)
   (mapc (lambda (package)
           (unless (package-installed-p package)
@@ -37,7 +31,11 @@
                 (print "Refreshhing package contents")
               (package-refresh-contents))
             (setq snow--installed-packages (add-to-list 'snow--installed-packages package))
-            (package-install package))) snow-core-packages))
+            (package-install package))) snow-core-packages)
+
+  ;; Ensure all use-package declarations install automatically
+  (require 'use-package-ensure)
+  (setq use-package-always-ensure t))
 
 (defun require-module (module submodule)
   "Very simple require function that does not check for repeated module, meaning it

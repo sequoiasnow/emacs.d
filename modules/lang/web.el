@@ -1,4 +1,5 @@
 (use-package web-mode
+  :defer t
   :config
   (add-to-list 'auto-mode-alist '("\\.js\\'"       . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx\\'"      . web-mode))
@@ -17,6 +18,7 @@
 
 (use-package tide
   :after web-mode
+  :defer t
   :config
   (defun setup-tide-mode ()
     (interactive)
@@ -41,6 +43,7 @@
 
 
 (use-package scss-mode
+  :defer t
   :config
   (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
   (setq-default scss-compile-on-save nil))

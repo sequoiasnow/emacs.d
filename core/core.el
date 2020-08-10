@@ -57,9 +57,17 @@ remain largelly static across uses")
 (add-to-list 'exec-path (expand-file-name "~/.cabal/bin"))
 (add-to-list 'exec-path (expand-file-name "~/.local/bin"))
 
+;; Define the startup time:
+(defun snow|startup-time ()
+  (interactive)
+  (print (format "%.2f seconds"
+                 (float-time
+                  (time-subtract after-init-time before-init-time)))))
+
 ;; Allow the loading of the files.
 (require 'cl-lib)
 (require 'core-packages (concat snow-core-dir "core-packages"))
+
 
 ;; Let's get the ball rolling
 (snow-initialize)

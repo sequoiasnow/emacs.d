@@ -22,6 +22,7 @@
        vue
 
        :feature
+       startup
        evil
        aggressive-indent
        paredit

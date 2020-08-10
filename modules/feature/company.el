@@ -1,4 +1,5 @@
 (use-package company
+  :defer 2
   :bind
   (("C-c C-p" . company-complete)
    ("C-c C-w" . company-show-doc-buffer))

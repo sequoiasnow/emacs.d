@@ -1,1 +1,1 @@
-(use-package xkcd)
+(use-package xkcd :defer t)

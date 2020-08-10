@@ -76,6 +76,6 @@
 (global-set-key (kbd "C-c C-t") 'snow-ui|toggle-transparency)
 
 ;; Set the default font.
-(add-to-list 'default-frame-alist '(font . "Hack"))
+(add-to-list 'default-frame-alist '(font . "SF Mono"))
 
 (provide 'core-ui)

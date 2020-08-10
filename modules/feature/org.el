@@ -10,10 +10,6 @@
 ;; Allow latex math to be pretty!
 (setq org-latex-create-formula-image-program 'dvisvgm)
 
-;; Allow C complilation
-(org-babel-do-load-languages
- 'org-babel-load-languages '((C . t)))
-
 ;; Allow some more literate programming.
 (setq org-src-fontify-natively t)
 
@@ -22,13 +18,15 @@
  '(org-block nil)
  '(org-block-end-line nil))
 
+;; Allow editing in Olivetti mode
+(use-package olivetti
+  :defer t)
+
 ;; Set markdown line spacing to be a bit more generous, and center the cursor
 ;; in the screen.
 (defun setup-orgmode-editing ()
-  (centered-cursor-mode)
-  (writeroom-mode)
+  (olivetti-mode)
   (visual-line-mode)
   (setq line-spacing 6))
 
 (add-hook 'org-mode-hook 'setup-orgmode-editing)
-

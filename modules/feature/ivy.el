@@ -1,3 +1,5 @@
+;; -*-no-byte-compile: t; -*-
+
 (when (display-graphic-p)
   (use-package all-the-icons-ivy
     :after all-the-icons
@@ -5,7 +7,7 @@
 
 (use-package counsel
   :commands (ivy-mode)
-  :bind 
+  :bind
   (("C-x b"   . ivy-switch-buffer)
    ("C-c C-r" . ivy-resume)
    ("M-x"     . counsel-M-x)
@@ -16,10 +18,10 @@
    ("C-c g"   . counsel-git-grep)
    ("C-c C-g" . counsel-git)
    ("C-c k"   . counsel-ag)
-   ("C-x l"   . counsel-locate)) 
+   ("C-x l"   . counsel-locate))
   :config
   (ivy-mode 1)
-  
+
   ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
@@ -33,6 +35,7 @@
   (setq ivy-re-builders-alist
         ;; allow input not in order
         '((t   . ivy--regex-ignore-order))))
+
 (use-package counsel-gtags
   :after counsel
   :config
@@ -41,5 +44,3 @@
   (define-key counsel-gtags-mode-map (kbd "M-r") 'counsel-gtags-find-reference)
   (define-key counsel-gtags-mode-map (kbd "M-s") 'counsel-gtags-find-symbol)
   (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward))
-
-

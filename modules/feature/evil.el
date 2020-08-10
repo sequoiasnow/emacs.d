@@ -7,5 +7,6 @@
   (evil-mode 1))
 
 (use-package evil-vimish-fold
+  :defer 4
   :config
   (evil-vimish-fold-mode 1))

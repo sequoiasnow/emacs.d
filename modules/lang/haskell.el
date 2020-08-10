@@ -1,4 +1,5 @@
 (use-package haskell-mode
+  :defer t
   :mode "\\.hs$"
   :mode ("\\.ghci$" . ghci-script-mode)
   :mode ("\\.cabal$" . haskell-cabal-mode)

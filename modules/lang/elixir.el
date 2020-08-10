@@ -1,2 +1,2 @@
-(use-package elixir-mode)
-(use-package alchemist)
+(use-package elixir-mode :defer t)
+(use-package alchemist :defer t)

@@ -18,3 +18,4 @@ custom
 transient
 eshell
 cache
+*.elc

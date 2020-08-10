@@ -1,20 +1,19 @@
-(use-package centered-cursor-mode)
-
-(use-package markdown-mode :mode "\\.md$"
+(use-package markdown-mode
+  :mode "\\.md$"
+  :defer t
   :config
-  (add-hook 'markdown-mode-hook 'flyspell-mode))
+  (add-hook 'markdown-mode-hook 'flyspell-mode)
+  (set-face-attribute 'markdown-pre-face nil
+                      :inherit nil
+                      :background nil)
+  (set-face-attribute 'markdown-code-face nil
+                      :inherit nil
+                      :background nil)
+  (set-face-attribute 'edit-indirect-edited-region nil
+                      :inherit nil
+                      :background nil))
 
-(use-package edit-indirect)
-
-(set-face-attribute 'markdown-pre-face nil
-                    :inherit nil
-                    :background nil)
-(set-face-attribute 'markdown-code-face nil
-                    :inherit nil
-                    :background nil)
-(set-face-attribute 'edit-indirect-edited-region nil
-                    :inherit nil
-                    :background nil)
+(use-package edit-indirect :defer t)
 
 
 ;; Set markdown line spacing to be a bit more generous, and center the cursor

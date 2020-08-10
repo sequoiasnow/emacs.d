@@ -4,7 +4,7 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic nil)
   :config
-  (load-theme 'doom-outrun-electric t)
+  (load-theme 'doom-Iosvkem t)
 
   ;; Disable italic comments
   (set-face-italic 'font-lock-comment-face nil))

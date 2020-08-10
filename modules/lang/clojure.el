@@ -1,3 +1,1 @@
-(use-package clojure-mode :mode "\\.clk$")
-
-
+(use-package clojure-mode :mode "\\.clk$" :defer t)

@@ -1,4 +1,5 @@
-(use-package paredit 
+(use-package paredit
+  :defer 1
   :config
   (progn
     (autoload 'enable-paredit-mode "paredit")

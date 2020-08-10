@@ -1,1 +1,1 @@
-(use-package swift-mode :mode "\\.swift$")
+(use-package swift-mode :mode "\\.swift$" :defer t)

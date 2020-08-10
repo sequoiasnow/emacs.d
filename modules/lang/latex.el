@@ -1,24 +1,12 @@
 ;; Enable latex preview pane
 (use-package latex-preview-pane
+  :defer t
   :init
   (setq pdf-latex-command "xelatex")
   (setq doc-view-continuous t)
   :config
   (latex-preview-pane-enable))
 
-;; Better doc view rendering
-(setq doc-view-resolution 300)
-
-;; Nice PdfView for Retina screens
-(use-package pdf-tools
-  :config
-  (setq pdf-view-midnight-colors `(,(face-attribute 'default :foreground) .
-                                   ,(face-attribute 'default :background)))
-  
-  (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
-  
-  (add-hook 'pdf-view-mode-hook (lambda ()
-                                  (pdf-view-midnight-minor-mode))))
 
 ;; Auto complete for Latex by AUCTex
 (use-package auctex
