@@ -11,7 +11,8 @@
                       :background nil)
   (set-face-attribute 'edit-indirect-edited-region nil
                       :inherit nil
-                      :background nil))
+                      :background nil)
+  (setq markdown-max-image-size '(500 . 600)))
 
 (use-package edit-indirect :defer t)
 

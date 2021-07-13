@@ -2,12 +2,19 @@
 (use-package doom-themes
   :init
   (setq doom-themes-enable-bold t
-        doom-themes-enable-italic nil)
+        doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-Iosvkem t)
+  (load-theme 'doom-outrun-electric t)
 
   ;; Disable italic comments
-  (set-face-italic 'font-lock-comment-face nil))
+  (set-face-italic 'font-lock-comment-face t))
+
+(defun snow-ui|load-theme ()
+  "Disable all themes and then load a single theme interactively."
+  (interactive)
+  (while custom-enabled-themes
+    (disable-theme (car custom-enabled-themes)))
+  (call-interactively 'load-theme))
 
 
 (use-package solaire-mode

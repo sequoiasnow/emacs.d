@@ -24,12 +24,15 @@
 (window-divider-mode)
 
 ;; Ensure natural titlebar
-(add-to-list 'default-frame-alist
-             '(ns-transparent-titlebar . t))
+;; (add-to-list 'default-frame-alist
+;;              '(ns-transparent-titlebar . t))
+
+;; For some reason I like the light native tab bar, sue me ;-]
+(add-to-list 'default-frame-alist '(ns-appearance . light))
 
 ;; Remove titlebar info
-(setq ns-use-proxy-icon nil)
-(setq-default frame-title-format nil)
+(setq-default ns-use-proxy-icon nil)
+;; (setq-default frame-title-format nil)
 
 ;; Native fullscreen
 (setq-default ns-use-native-fullscreen t
@@ -74,8 +77,17 @@
               100)
          '(85 . 50) '(100 . 100)))))
 (global-set-key (kbd "C-c C-t") 'snow-ui|toggle-transparency)
+;; By default, let's leave things opaque
+(set-frame-parameter nil 'alpha 100)
 
 ;; Set the default font.
 (add-to-list 'default-frame-alist '(font . "SF Mono"))
+
+;; Remove background of theme in terminal
+(defun remove-bg-in-term ()
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+
+;; (add-hook 'window-setup-hook 'remove-bg-in-term)
 
 (provide 'core-ui)

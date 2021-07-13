@@ -22,6 +22,7 @@
        vue
 
        :feature
+       lsp
        startup
        evil
        aggressive-indent
@@ -37,7 +38,9 @@
        xkcd
        dash
        org
+       window
        writing
+       rss
 
        :ui
        theme

@@ -1,4 +1,4 @@
 (use-package ace-window
-  :defer 1
   :config
-  (global-set-key (kbd "M-o") 'ace-window))
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (global-set-key (kbd "M-p") 'ace-window))

@@ -2,6 +2,9 @@
 (setq mac-option-key-is-meta t
       mac-option-modifier 'meta)
 
+;; Make the MAC / WINDOWS key super
+(setq mac-command-modifier 'super)
+
 ;; Set the eshell command prompt
 (setq eshell-prompt-regexp "^[^λ]+ λ ")
 

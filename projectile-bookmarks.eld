@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/dev/ghost-zengarden/" "~/work/7mind-api-specs/")
+("~/.emacs.d/" "~/Documents/writing/blog/" "~/dev/note/" "~/Documents/writing/math/mathaintevil/" "~/dev/abandoned/lyst-db/" "~/dev/caesar/" "~/dev/mazarbul/" "~/dev/memorandom/" "~/dev/formlet/" "~/dev/digestive-functors-servant/" "~/dev/fortunes/" "~/dev/foo/" "~/Documents/writing/thoughtsfactorial/" "~/dev/abandoned/lyst-web/" "~/tmp/expendable/" "~/.stack/global-project/" "~/Documents/writing/blog2/" "~/go/src/7mind-test-operator/" "~/go/src/jolly-rodger/" "~/go/src/testoperator/")

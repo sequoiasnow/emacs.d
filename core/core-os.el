@@ -9,7 +9,20 @@
        (cond ((display-graphic-p)
               ;; This sets the PATH variables correctly for non terminal-based
               ;; emacs environments.
-              (use-package exec-path-from-shell
-                :config (exec-path-from-shell-initialize))))))
+              (setq-default exec-path '("/usr/local/bin"
+                                        "/usr/local/sbin"
+                                        "/Users/sequoiasnow/.cargo/bin"
+                                        "/Users/sequoiasnow/lib/googke-cloud-sdk/bin"
+                                        "/Users/sequoiasnow/.bin/"
+                                        "/Users/sequoiasnow/.local/bin/"
+                                        "/Users/sequoiasnow/.ghcup/bin"
+                                        "/Users/sequoiasnow/go/bin"
+                                        "/Library/TeX/texbin/"
+                                        "/usr/bin"
+                                        "/usr/sbin"
+                                        "/bin"
+                                        "/sbin"))
+              (setenv "PATH"  (mapconcat 'identity exec-path ":"))
+              ))))
 
 (provide 'core-os)

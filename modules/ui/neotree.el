@@ -1,6 +1,8 @@
 (use-package projectile
   :config
-  (projectile-global-mode))
+  (projectile-global-mode)
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (use-package neotree
   :after (projectile doom-themes evil)
@@ -18,8 +20,8 @@
 
   (defun neotree-project-dir ()
     "Open NeoTree using the git root."
-    (interactive) 
-    (progn (neotree-change-proj-dir) 
+    (interactive)
+    (progn (neotree-change-proj-dir)
            (neotree-toggle)))
 
   (global-set-key (kbd "s-/") 'neotree-toggle)
@@ -35,5 +37,3 @@
   (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
   (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
   (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter))
-
-
